@@ -1,6 +1,7 @@
 // Orden de secciones: Hero, TrustBar, Services, About, HowItWorks,
 // Testimonials, FAQ, ContactCTA, Footer + WhatsAppButton flotante.
 import { About } from "@/components/About";
+import { ContactCTA } from "@/components/ContactCTA";
 import { FAQ } from "@/components/FAQ";
 import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
@@ -17,6 +18,7 @@ export default function Home() {
       <HowItWorks />
       <Testimonials />
       <FAQ />
+      <ContactCTA />
     </main>
   );
 }

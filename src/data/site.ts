@@ -94,6 +94,17 @@ export const site = {
         "Sí. Reviso tu póliza actual sin costo, la comparo con otras opciones y, si vale la pena cambiar, te ayudo a hacerlo sin quedar desprotegido ni un día.",
     },
   ],
+  /** Tipos de seguro que ofrece (select del formulario; reutilizar en Services). */
+  insuranceTypes: [
+    "Seguro de vida",
+    "Seguro de salud",
+    "Seguro de auto",
+    "Seguro de hogar",
+    "Seguro para empresas",
+    "Seguro de viaje",
+  ],
+  /** Enlace a la política de tratamiento de datos personales (Ley 1581 de 2012). */
+  privacyPolicyUrl: "#politica-de-datos",
   /** Número en formato internacional, sin "+" ni espacios. */
   whatsapp: "57XXXXXXXXXX",
   whatsappMessage:

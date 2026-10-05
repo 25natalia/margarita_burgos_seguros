@@ -17,6 +17,9 @@
   --color-ink: #1c2b33;
   --color-ink-muted: #55636b;
 
+  /* Errores de formulario */
+  --color-danger: #b42318;
+
   /* Estrellas de calificación (testimonios) */
   --color-star: #d99a1e;
 
