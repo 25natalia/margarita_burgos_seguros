@@ -21,6 +21,7 @@
   --color-star: #d99a1e;
 
   --container-content: 75rem; /* 1200px → max-w-content */
+  --container-narrow: 45rem; /* 720px → max-w-narrow (FAQ, textos largos) */
 
   /* Ticker de testimonios: el contenido va duplicado, así que -50% es un ciclo completo */
   --animate-marquee: marquee 60s linear infinite;

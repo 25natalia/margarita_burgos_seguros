@@ -66,6 +66,34 @@ export const site = {
       rating: 5,
     },
   ],
+  /** Preguntas frecuentes (acordeón + schema FAQPage para SEO). */
+  faqs: [
+    {
+      question: "¿Cobras por asesorar?",
+      answer:
+        "No. La asesoría es gratis para ti: mi comisión la paga la aseguradora, así que no pagas más por tener a alguien de tu lado.",
+    },
+    {
+      question: "¿Qué pasa si tengo un siniestro?",
+      answer:
+        "Me escribes a mí primero. Te digo qué documentos reunir, radico la reclamación contigo y hago seguimiento con la aseguradora hasta que se resuelva.",
+    },
+    {
+      question: "¿Cuánto cuesta un seguro de vida?",
+      answer:
+        "Depende de tu edad, tu salud y el valor que quieras asegurar. Hay planes desde [valor] al mes. Escríbeme y te doy una cotización exacta, sin compromiso.",
+    },
+    {
+      question: "¿Con qué aseguradoras trabajas?",
+      answer:
+        "Con varias de las principales aseguradoras del país. Por eso puedo comparar opciones y recomendarte la que mejor se ajusta a ti, no a mí.",
+    },
+    {
+      question: "¿Puedo cambiar mi seguro actual?",
+      answer:
+        "Sí. Reviso tu póliza actual sin costo, la comparo con otras opciones y, si vale la pena cambiar, te ayudo a hacerlo sin quedar desprotegido ni un día.",
+    },
+  ],
   /** Número en formato internacional, sin "+" ni espacios. */
   whatsapp: "57XXXXXXXXXX",
   whatsappMessage:
