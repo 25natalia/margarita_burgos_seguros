@@ -22,6 +22,50 @@ export const site = {
     "Reconocimiento [aseguradora] como mejor asesora [año]",
     "Miembro de [asociación o gremio]",
   ],
+  /** Testimonios (placeholders: reemplazar por opiniones reales con autorización). */
+  testimonials: [
+    {
+      quote: "Cuando choqué, Margarita me resolvió todo.",
+      name: "Andrés R.",
+      city: "Bogotá",
+      rating: 5,
+    },
+    {
+      quote:
+        "Me explicó cada cobertura con paciencia. Por fin entiendo qué estoy pagando en mi seguro de salud.",
+      name: "Carolina M.",
+      city: "Medellín",
+      rating: 5,
+    },
+    {
+      quote:
+        "Comparó varias opciones y terminé pagando menos por un seguro de vida mejor que el que tenía.",
+      name: "Jorge L.",
+      city: "Cali",
+      rating: 5,
+    },
+    {
+      quote:
+        "Aseguramos los vehículos de la empresa con ella. Siempre responde rápido, incluso los fines de semana.",
+      name: "Paola G.",
+      city: "Barranquilla",
+      rating: 5,
+    },
+    {
+      quote:
+        "Cuando mi papá se enfermó, estuvo pendiente de cada trámite con la aseguradora. Eso no tiene precio.",
+      name: "Luisa F.",
+      city: "Bucaramanga",
+      rating: 5,
+    },
+    {
+      quote:
+        "Nos ayudó a asegurar la casa nueva. Todo fue claro, rápido y sin letra pequeña.",
+      name: "Camilo T.",
+      city: "Pereira",
+      rating: 5,
+    },
+  ],
   /** Número en formato internacional, sin "+" ni espacios. */
   whatsapp: "57XXXXXXXXXX",
   whatsappMessage:

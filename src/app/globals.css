@@ -17,7 +17,22 @@
   --color-ink: #1c2b33;
   --color-ink-muted: #55636b;
 
+  /* Estrellas de calificación (testimonios) */
+  --color-star: #d99a1e;
+
   --container-content: 75rem; /* 1200px → max-w-content */
+
+  /* Ticker de testimonios: el contenido va duplicado, así que -50% es un ciclo completo */
+  --animate-marquee: marquee 60s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
 
 @theme inline {
