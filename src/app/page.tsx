@@ -2,6 +2,7 @@
 // Testimonials, FAQ, ContactCTA, Footer + WhatsAppButton flotante.
 import { About } from "@/components/About";
 import { Hero } from "@/components/Hero";
+import { HowItWorks } from "@/components/HowItWorks";
 import { TrustBar } from "@/components/TrustBar";
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
       <TrustBar />
       {/* Services va aquí (rama feat/servicios) */}
       <About />
+      <HowItWorks />
     </main>
   );
 }
