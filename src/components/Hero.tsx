@@ -13,7 +13,8 @@ export function Hero() {
         className="bg-primary-soft"
       >
         <div className="mx-auto grid max-w-content items-center gap-10 px-4 pt-10 pb-12 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:pt-20 lg:pb-16">
-          <div className="mx-auto w-full max-w-sm lg:order-2 lg:max-w-md">
+          {/* En móvil la foto es más pequeña para que el titular y el CTA se vean sin hacer scroll */}
+          <div className="mx-auto w-full max-w-[13rem] sm:max-w-xs lg:order-2 lg:max-w-md">
             <ImagePlaceholder
               label="Foto de Margarita sonriendo – retrato vertical"
               ratio="4/5"

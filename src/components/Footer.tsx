@@ -62,7 +62,7 @@ export function Footer() {
 
   return (
     <footer className="bg-primary-dark text-sm text-white/75">
-      <div className="mx-auto max-w-content px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-content px-4 pt-8 pb-24 sm:px-6 sm:pb-8 lg:px-8">
         <div className="flex flex-col items-center gap-6 text-center lg:flex-row lg:justify-between lg:text-left">
           <p className="text-base font-bold text-white">
             {site.name} · Asesora de Seguros
@@ -111,7 +111,7 @@ export function Footer() {
           </ul>
         </div>
 
-        <div className="mt-6 flex flex-col items-center gap-2 border-t border-white/10 pt-6 text-xs text-white/60 sm:flex-row sm:justify-between">
+        <div className="mt-6 flex flex-col items-center gap-2 border-t border-white/10 pt-6 text-xs text-white/60 sm:flex-row sm:justify-between sm:pr-20">
           <p>
             © {year} {site.name}. Todos los derechos reservados.
           </p>

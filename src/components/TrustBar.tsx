@@ -34,13 +34,11 @@ export function TrustBar() {
             <p className="text-center text-sm text-ink-muted">
               Trabajo con las principales aseguradoras del país
             </p>
-            <ul className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-              {site.insurers.map((insurer, i) => (
+            <ul className="mt-6 flex flex-wrap justify-center gap-4">
+              {site.insurers.map((insurer) => (
                 <li
                   key={insurer}
-                  className={`flex h-14 items-center justify-center gap-2 rounded-lg border border-dashed border-line bg-surface-muted px-3 text-xs font-semibold text-ink-muted grayscale ${
-                    i === site.insurers.length - 1 ? "col-span-2 sm:col-span-1" : ""
-                  }`}
+                  className="flex h-14 basis-[calc(50%-0.5rem)] items-center justify-center gap-2 rounded-lg border border-dashed border-line bg-surface-muted px-3 text-xs font-semibold text-ink-muted grayscale sm:basis-44 lg:flex-1"
                 >
                   <ShieldCheck aria-hidden="true" className="size-5 shrink-0 opacity-60" />
                   <span>
