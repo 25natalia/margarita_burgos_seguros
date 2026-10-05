@@ -4,6 +4,7 @@ export const site = {
   name: "Margarita Burgos",
   role: "Asesora de seguros",
   city: "Colombia",
+  yearsExperience: 15,
   /** Número en formato internacional, sin "+" ni espacios. */
   whatsapp: "57XXXXXXXXXX",
   whatsappMessage:
