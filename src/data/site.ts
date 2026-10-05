@@ -15,6 +15,13 @@ export const site = {
     "Aseguradora 4",
     "Aseguradora 5",
   ],
+  /** Certificaciones y logros (lista con check en la sección About). */
+  achievements: [
+    "Intermediaria de seguros certificada ante [entidad]",
+    "Certificación en [nombre de la certificación]",
+    "Reconocimiento [aseguradora] como mejor asesora [año]",
+    "Miembro de [asociación o gremio]",
+  ],
   /** Número en formato internacional, sin "+" ni espacios. */
   whatsapp: "57XXXXXXXXXX",
   whatsappMessage:
