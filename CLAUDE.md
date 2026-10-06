@@ -22,7 +22,10 @@ Todo está orientado a que el visitante escriba por WhatsApp o deje sus datos.
 
 - **Wireframe de alta fidelidad**: layout, tipografía, espaciados y estilos reales con Tailwind; textos reales en español (Colombia).
 - **Imágenes**: usar `ImagePlaceholder` (bloque gris suave con la proporción correcta, ícono de imagen y etiqueta que dice qué foto va). Debe ser fácil reemplazarlo luego por `next/image` con las mismas dimensiones.
-- **Paleta de confianza**: color principal profundo (`primary`, `primary-dark`), neutros claros de fondo y un acento cálido (`accent`) que se usa **solo en botones de acción** (CTA). No usar el acento en textos, íconos decorativos ni fondos.
+- **Paleta de marca**: violeta primario `#3A22B2` (`primary`, con `primary-dark` y `primary-soft` derivados), secundario `#E7ECF2` (`surface-muted`), neutro `#2C2C2C` (`ink`) y complementos `#5E5DF6` (`complement`) y verde menta `#48E596` (`mint`).
+  - Los botones de acción (CTA) usan `accent`, que es el violeta primario con texto blanco. Sobre fondos violeta, el CTA va en blanco con texto violeta.
+  - `mint` es solo decorativo o con texto oscuro: con texto blanco no cumple contraste.
+- **Tipografía**: títulos (`h1`–`h3`) en Questrial (`font-heading`, next/font), equivalente libre de Champagne & Limousines Bold. Texto en Helvetica Neue Light del sistema (`font-sans`, peso 300), que cae a Arial donde no está instalada.
 - Usar siempre los tokens definidos en `src/app/globals.css` (`@theme`); no escribir colores hex sueltos en los componentes.
 - **Mobile first**: estilos base para móvil y luego `sm:`, `md:`, `lg:`.
 - **CTA repetido** cada 2–3 secciones (WhatsApp o formulario).

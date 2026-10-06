@@ -1,21 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  /* Principal: azul petróleo */
-  --color-primary: #0e4d64;
-  --color-primary-dark: #0a3546;
-  --color-primary-soft: #e7f0f3;
+  /* Marca: violeta primario */
+  --color-primary: #3a22b2;
+  --color-primary-dark: #2a1886; /* derivado: títulos, footer, tarjeta destacada */
+  --color-primary-soft: #ecebfe; /* derivado: fondo del Hero */
 
-  /* Acento: SOLO para botones de acción */
-  --color-accent: #c9432a;
-  --color-accent-dark: #b53a22;
+  /* Complementos de marca */
+  --color-complement: #5e5df6; /* violeta claro */
+  --color-mint: #48e596; /* verde menta: solo decorativo o con texto oscuro (no con texto blanco) */
+
+  /* Acento: SOLO para botones de acción (violeta primario) */
+  --color-accent: #3a22b2;
+  --color-accent-dark: #5e5df6; /* hover */
 
   /* Neutros */
-  --color-surface: #faf8f5;
-  --color-surface-muted: #f1eee9;
-  --color-line: #e4e0d9;
-  --color-ink: #1c2b33;
-  --color-ink-muted: #55636b;
+  --color-surface: #ffffff;
+  --color-surface-muted: #e7ecf2; /* color secundario de marca */
+  --color-line: #d5dbe5;
+  --color-ink: #2c2c2c; /* color neutro de marca */
+  --color-ink-muted: #5c6170;
 
   /* Botón flotante de WhatsApp (más oscuro que #25d366 para contraste 3:1 con el ícono) */
   --color-whatsapp: #1a9e4b;
@@ -44,7 +48,10 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  /* Texto: Helvetica Neue del sistema (de pago, no se descarga). En Windows/Android cae a Arial. */
+  --font-sans: "Helvetica Neue", Helvetica, Arial, ui-sans-serif, system-ui, sans-serif;
+  /* Títulos: Questrial, equivalente libre de Champagne & Limousines */
+  --font-heading: var(--font-questrial), "Helvetica Neue", Arial, sans-serif;
 }
 
 html {
@@ -52,7 +59,13 @@ html {
 }
 
 body {
-  @apply bg-surface font-sans text-ink;
+  @apply bg-surface font-sans font-light text-ink;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
 }
 
 :focus-visible {

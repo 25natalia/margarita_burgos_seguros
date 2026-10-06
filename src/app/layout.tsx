@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Questrial } from "next/font/google";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+// Títulos. El texto usa Helvetica Neue del sistema (ver globals.css).
+const questrial = Questrial({
+  variable: "--font-questrial",
+  weight: "400",
   subsets: ["latin"],
   display: "swap",
 });
@@ -18,12 +20,12 @@ export const metadata: Metadata = {
 // viewportFit "cover" activa env(safe-area-inset-*) en iPhone (botón flotante).
 export const viewport: Viewport = {
   viewportFit: "cover",
-  themeColor: "#0e4d64",
+  themeColor: "#3a22b2",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${jakarta.variable} h-full antialiased`}>
+    <html lang="es" className={`${questrial.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         {children}
         <WhatsAppButton />

@@ -5,7 +5,7 @@ import { SectionDivider } from "@/components/SectionDivider";
 import { site } from "@/data/site";
 import { whatsappLink } from "@/lib/whatsapp";
 
-// Sobre el fondo azul el foco global (azul) no se ve: aquí va en blanco.
+// Sobre el fondo violeta el foco global (azul) no se ve: aquí va en blanco.
 const onDarkFocus = "focus-visible:outline-white";
 
 export function ContactCTA() {
@@ -38,7 +38,7 @@ export function ContactCTA() {
               href={whatsappLink("Hola Margarita, quiero hablar contigo sobre un seguro.")}
               target="_blank"
               rel="noopener noreferrer"
-              className={`mt-8 inline-flex w-full items-center justify-center gap-3 rounded-full bg-accent px-8 py-5 text-lg font-bold text-white shadow-lg shadow-black/20 transition-colors hover:bg-accent-dark sm:w-auto ${onDarkFocus}`}
+              className={`mt-8 inline-flex w-full items-center justify-center gap-3 rounded-full bg-white px-8 py-5 text-lg font-bold text-primary shadow-lg shadow-black/20 transition-colors hover:bg-primary-soft sm:w-auto ${onDarkFocus}`}
             >
               <MessageCircle aria-hidden="true" className="size-6" />
               Escríbeme por WhatsApp

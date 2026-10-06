@@ -56,7 +56,7 @@ export function HowItWorks() {
                     <span
                       aria-hidden="true"
                       className={`flex size-16 items-center justify-center rounded-full text-2xl font-extrabold ${
-                        highlighted ? "bg-white text-primary-dark" : "bg-primary text-white"
+                        highlighted ? "bg-mint text-ink" : "bg-primary text-white"
                       }`}
                     >
                       {i + 1}
