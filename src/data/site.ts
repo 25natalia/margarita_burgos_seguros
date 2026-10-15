@@ -119,6 +119,10 @@ export const site = {
   /** Enlace a la política de tratamiento de datos personales (Ley 1581 de 2012). */
   privacyPolicyUrl: "#politica-de-datos",
   // WhatsApp e Instagram: src/config/contact.ts.
-  phone: "+57 XXX XXX XXXX", // TODO (Margarita): teléfono de llamadas (¿el mismo de WhatsApp?)
-  email: "correo@ejemplo.com", // TODO (Margarita): correo real
+  /**
+   * Foto pequeña de Margarita para la firma de "Hablemos sin compromiso"
+   * (avatar circular). Recomendado: 128×128 px, cuadrada. Mientras sea null se
+   * muestran sus iniciales.
+   */
+  avatar: null as string | null,
 } as const;

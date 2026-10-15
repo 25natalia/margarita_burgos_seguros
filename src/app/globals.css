@@ -71,6 +71,8 @@
   /* ── Radios: 12 (controles), 20 (cards) y pill (rounded-full) ──────── */
   --radius-control: 0.75rem;
   --radius-card: 1.25rem;
+  --radius-panel: 1.5rem; /* card del formulario de contacto (24px) */
+  --radius-field: 0.875rem; /* campos del formulario (14px) */
   --radius-feature: 2rem; /* foto destacada de "Hola, soy Margarita" */
 
   /* ── Movimiento: 150 / 300 / 600 ms (duration-150/300/600); JS en src/lib/motion.ts ── */
@@ -269,7 +271,48 @@ html[data-reveal-ready] [data-appear]:not([data-visible]) {
   animation-delay: var(--delay, 0ms);
 }
 
+/* ── Formulario ─────────────────────────────────────────────────────────── */
+/* Mensajes de error: aparición sutil */
+@keyframes field-msg {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+.field-msg {
+  animation: field-msg 200ms var(--ease-brand);
+}
+
+/* Check del checkbox: se dibuja al marcar */
+.check-draw {
+  stroke-dasharray: 16;
+  stroke-dashoffset: 16;
+  transition: stroke-dashoffset 300ms var(--ease-brand);
+}
+.peer:checked ~ * .check-draw,
+.peer:checked ~ .check-draw {
+  stroke-dashoffset: 0;
+}
+
+/* Enviado: el check entra con una escala suave */
+@keyframes sent-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+.sent-pop {
+  animation: sent-pop 600ms var(--ease-brand) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .field-msg,
+  .sent-pop {
+    animation: none;
+  }
+  .check-draw {
+    transition: none;
+  }
   html[data-reveal-ready] [data-appear],
   html[data-reveal-ready] [data-appear]:not([data-visible]) {
     opacity: 1;

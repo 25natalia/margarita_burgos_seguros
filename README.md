@@ -163,8 +163,6 @@ El sitio se despliega en [Vercel](https://vercel.com/). Al conectar el repositor
 ## Contacto
 
 **Margarita Burgos** – Asesora de Seguros
-WhatsApp: +57 XXX XXX XXXX
-Correo: correo@ejemplo.com
 
 ---
 

@@ -53,8 +53,8 @@ Interlineado de títulos: 1.05–1.15 (display y h2) y 1.3 (h3).
 
 | Elemento | Valor | Guía |
 |---|---|---|
-| Alto de campo | 52px (`min-h-13`) | Rango de 48–56px (Material: campos de 56 dp; Apple: mínimo de 44 pt). |
-| Labels | 16px, siempre visibles encima del campo | WCAG 3.3.2 *Labels or Instructions*. El placeholder no reemplaza al label. |
+| Alto de campo | 56px (`h-14`), estilo relleno con label flotante | Rango de 48–56px (Material: campos de 56 dp; Apple: mínimo de 44 pt). |
+| Labels | Label real flotante: 16px en reposo dentro del campo, ~13px al enfocar o con contenido. No se usa el atributo placeholder como label. | WCAG 3.3.2 *Labels or Instructions*. |
 | Mensajes de error | 16px, con ícono y asociados con `aria-describedby` | WCAG 3.3.1 *Error Identification*. |
 
 ## Íconos

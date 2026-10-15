@@ -50,6 +50,7 @@ Todo está orientado a que el visitante escriba por WhatsApp o deje sus datos.
 - **Layout**: ancho máximo de contenido ~1200px (`max-w-content`), espaciado generoso entre secciones.
 - **Componentes de servidor por defecto**; `"use client"` solo donde haga falta (acordeón del FAQ, formulario, etc.).
 - **Datos editables** (nombre, contacto, redes, textos que la clienta cambiará) en `src/data/site.ts`. No hardcodear números ni correos en los componentes.
+- **Formulario de contacto**: al enviar abre WhatsApp (en el mismo clic, para que el navegador no lo bloquee) con nombre, celular y seguro en el mensaje, y luego muestra el estado de enviado. Campos con estilo relleno y label flotante (`FloatingField` en ContactForm.tsx). El sitio no publica teléfono ni correo.
 - **Contacto real** en `src/config/contact.ts` (número de WhatsApp, Instagram). Enlaces de WhatsApp siempre con `getWhatsAppLink(mensaje)` de `src/lib/whatsapp.ts` (wa.me con mensaje prellenado según el contexto) y en nueva pestaña.
 - **Cards con hover**: utilidad `card-lift` (sube 5px, borde lavanda más intenso, sombra en capas en `::after`). No usar sombras de hover sueltas.
 - **No hacer commits ni push**: el usuario maneja las ramas.

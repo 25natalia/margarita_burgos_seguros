@@ -1,10 +1,9 @@
-import { ChatBubbleOvalLeftIcon, EnvelopeIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import { ChatBubbleOvalLeftIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import type { ComponentType, ReactNode, SVGProps } from "react";
-import { Button } from "@/components/Button";
 import { InstagramIcon } from "@/components/InstagramIcon";
-import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { contact } from "@/config/contact";
 import { seguros } from "@/data/seguros";
 import { site } from "@/data/site";
@@ -32,7 +31,7 @@ function FooterLink({
   children: ReactNode;
   icon?: ComponentType<SVGProps<SVGSVGElement>>;
 }) {
-  const external = /^(https?:|mailto:|tel:)/.test(href);
+  const external = /^https?:/.test(href);
   const className =
     "group/fl inline-flex min-h-11 items-center gap-2 rounded-full text-white/70 transition-colors duration-150 ease-brand hover:text-white focus-visible:outline-white lg:min-h-0";
   const content = (
@@ -69,24 +68,12 @@ export function Footer() {
     // data-fab-hide: el botón flotante de WhatsApp se oculta aquí para no tapar contenido.
     <footer data-fab-hide className="bg-primary-dark text-white">
       <div className="mx-auto max-w-content px-4 pt-12 pb-6 sm:px-6 lg:px-8 lg:pt-16 lg:pb-8">
-        {/* Cierre: título a la izquierda y botón a la derecha */}
-        <RevealGroup className="flex flex-col items-start gap-6 border-b border-white/15 pb-8 lg:flex-row lg:items-center lg:justify-between">
-          <RevealItem>
-            <h2 className="max-w-3xl text-h2-compact font-extrabold text-white">
-              Tu tranquilidad empieza con una conversación
-            </h2>
-          </RevealItem>
-          <RevealItem>
-            <Button
-              href={getWhatsAppLink("Hola Margarita, quiero hablar contigo sobre un seguro.")}
-              variant="inverse"
-              size="md"
-              icon={ChatBubbleOvalLeftIcon}
-            >
-              Escríbeme por WhatsApp
-            </Button>
-          </RevealItem>
-        </RevealGroup>
+        {/* Cierre */}
+        <Reveal className="border-b border-white/15 pb-8">
+          <h2 className="max-w-3xl text-h2-compact font-extrabold text-white">
+            Tu tranquilidad empieza con una conversación
+          </h2>
+        </Reveal>
 
         {/* Columnas */}
         <RevealGroup className="grid gap-10 pt-10 pb-8 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
@@ -135,11 +122,6 @@ export function Footer() {
               <li>
                 <FooterLink href={getWhatsAppLink()} icon={ChatBubbleOvalLeftIcon}>
                   WhatsApp
-                </FooterLink>
-              </li>
-              <li>
-                <FooterLink href={`mailto:${site.email}`} icon={EnvelopeIcon}>
-                  {site.email}
                 </FooterLink>
               </li>
               <li className="flex min-h-11 items-center gap-2 text-white/70 lg:min-h-0">
