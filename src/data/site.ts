@@ -1,12 +1,25 @@
 // Datos editables del sitio. Reemplazar los placeholders con la información real.
 
+const yearsExperience = 15;
+
 export const site = {
   name: "Margarita Burgos",
   role: "Asesora de seguros",
-  city: "Colombia",
-  yearsExperience: 15,
-  clientsAdvised: 500,
-  activePolicies: 300,
+  city: "Colombia", // TODO (Margarita): ciudad donde atiende (se muestra en el footer)
+  yearsExperience,
+  /** Cifras de la barra de confianza (cuentan desde 0 al entrar en pantalla). */
+  stats: [
+    { value: yearsExperience, prefix: "+", label: "años de experiencia" },
+    { value: 500, prefix: "+", label: "clientes asesorados" },
+    { value: 300, prefix: "+", label: "pólizas activas" },
+  ],
+  /**
+   * Retrato recortado del Hero: PNG con fondo transparente en /public.
+   * Recomendado: 1000×1250 px (4:5), recortado a la altura del pecho y con el
+   * borde inferior recto, porque se apoya en el borde inferior del Hero.
+   * Ej.: "/margarita-retrato.png". Mientras sea null se muestra una silueta.
+   */
+  heroPortrait: null as string | null,
   /** Aseguradoras con las que trabaja (logos en escala de grises en la TrustBar). */
   insurers: [
     "Aseguradora 1",
@@ -105,15 +118,7 @@ export const site = {
   ],
   /** Enlace a la política de tratamiento de datos personales (Ley 1581 de 2012). */
   privacyPolicyUrl: "#politica-de-datos",
-  /** Número en formato internacional, sin "+" ni espacios. */
-  whatsapp: "57XXXXXXXXXX",
-  whatsappMessage:
-    "Hola Margarita, vi tu página y quiero información sobre un seguro.",
-  phone: "+57 XXX XXX XXXX",
-  email: "correo@ejemplo.com",
-  social: {
-    instagram: "https://instagram.com/usuario",
-    facebook: "https://facebook.com/usuario",
-    linkedin: "https://linkedin.com/in/usuario",
-  },
+  // WhatsApp e Instagram: src/config/contact.ts.
+  phone: "+57 XXX XXX XXXX", // TODO (Margarita): teléfono de llamadas (¿el mismo de WhatsApp?)
+  email: "correo@ejemplo.com", // TODO (Margarita): correo real
 } as const;

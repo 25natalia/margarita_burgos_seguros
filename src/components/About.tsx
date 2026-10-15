@@ -1,30 +1,38 @@
-import { CircleCheck, MessageCircle } from "lucide-react";
-import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { ChatBubbleLeftRightIcon, CheckCircleIcon, ScaleIcon, ShieldCheckIcon } from "@heroicons/react/24/outline";
+import {
+  ChatBubbleLeftRightIcon as ChatSolid,
+  ScaleIcon as ScaleSolid,
+  ShieldCheckIcon as ShieldSolid,
+} from "@heroicons/react/24/solid";
+import { AboutPhoto } from "@/components/AboutPhoto";
+import { SectionHeading } from "@/components/SectionHeading";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { site } from "@/data/site";
-import { whatsappLink } from "@/lib/whatsapp";
+
+// Pilares: frases que ya están en el texto de presentación.
+const pillars = [
+  { title: "Te hablo claro", text: "Cada póliza en palabras claras.", icon: ChatBubbleLeftRightIcon, iconSolid: ChatSolid },
+  { title: "Comparo por ti", text: "Opciones de varias aseguradoras.", icon: ScaleIcon, iconSolid: ScaleSolid },
+  { title: "Te acompaño siempre", text: "También en cada reclamación.", icon: ShieldCheckIcon, iconSolid: ShieldSolid },
+];
 
 export function About() {
   return (
-    <section id="sobre-mi" aria-labelledby="sobre-mi-titulo" className="bg-surface">
-      <div className="mx-auto grid max-w-content items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
-        <div className="mx-auto w-full max-w-md lg:max-w-none">
-          <ImagePlaceholder
-            label="Foto de Margarita en su oficina o con clientes"
-            ratio="1/1"
-          />
+    <section id="sobre-mi" aria-labelledby="sobre-mi-titulo" className="section-y overflow-x-clip bg-surface">
+      <div className="mx-auto grid max-w-content items-center gap-16 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
+        <div className="lg:col-span-6 lg:pr-6">
+          <AboutPhoto />
         </div>
 
-        <div>
-          <h2
-            id="sobre-mi-titulo"
-            className="text-3xl font-extrabold tracking-tight text-primary-dark sm:text-4xl"
-          >
-            Hola, soy Margarita
-          </h2>
+        <div className="lg:col-span-6">
+          <Reveal>
+            <SectionHeading id="sobre-mi-titulo" title="Hola, soy Margarita" align="left" />
+          </Reveal>
 
-          <div className="mt-6 space-y-4 text-lg leading-relaxed text-ink-muted">
+          <Reveal delay={0.1} className="mt-6 max-w-prose space-y-4 text-lead text-ink-muted">
             <p>
-              Me dediqué a los seguros porque vi de cerca lo que pasa cuando una
+              Me dediqué a los seguros porque{" "}
+              <strong className="font-semibold text-primary-dark">vi de cerca lo que pasa</strong> cuando una
               familia no está protegida: un accidente o una enfermedad puede
               cambiarlo todo de un día para otro. Mi trabajo es que eso no te
               pase a ti.
@@ -42,29 +50,36 @@ export function About() {
               </strong>{" "}
               Yo te acompaño en cada reclamación, de principio a fin.
             </p>
-          </div>
+          </Reveal>
 
-          <ul className="mt-8 space-y-3">
-            {site.achievements.map((achievement) => (
-              <li key={achievement} className="flex items-start gap-3 text-ink">
-                <CircleCheck
-                  aria-hidden="true"
-                  className="mt-0.5 size-5 shrink-0 text-primary"
-                />
-                <span>{achievement}</span>
-              </li>
+          {/* Pilares: en hover se elevan y el ícono se rellena en violeta */}
+          <RevealGroup as="ul" className="mt-10 grid gap-3 sm:grid-cols-3">
+            {pillars.map(({ title, text, icon: Icon, iconSolid: IconSolid }) => (
+              <RevealItem
+                as="li"
+                key={title}
+                className="group/pillar card-lift rounded-card bg-white p-5"
+              >
+                <span className="relative flex size-11 items-center justify-center rounded-control bg-tint">
+                  <Icon aria-hidden="true" className="size-5 text-primary" strokeWidth={1.5} />
+                  <span className="absolute inset-0 flex items-center justify-center rounded-control bg-primary opacity-0 transition-opacity duration-300 ease-brand group-hover/pillar:opacity-100">
+                    <IconSolid aria-hidden="true" className="size-5 text-white" />
+                  </span>
+                </span>
+                <p className="mt-4 font-heading font-extrabold text-primary-dark">{title}</p>
+                <p className="mt-1 text-ink-muted">{text}</p>
+              </RevealItem>
             ))}
-          </ul>
+          </RevealGroup>
 
-          <a
-            href={whatsappLink("Hola Margarita, me gustaría hablar contigo sobre un seguro.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-10 inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-primary px-7 py-4 text-base font-bold text-primary transition-colors hover:bg-primary hover:text-white sm:w-auto"
-          >
-            <MessageCircle aria-hidden="true" className="size-5" />
-            Hablemos por WhatsApp
-          </a>
+          <RevealGroup as="ul" className="mt-8 space-y-3">
+            {site.achievements.map((achievement) => (
+              <RevealItem as="li" key={achievement} className="flex items-start gap-3 text-ink">
+                <CheckCircleIcon aria-hidden="true" className="size-5 shrink-0 text-primary" strokeWidth={1.5} />
+                <span>{achievement}</span>
+              </RevealItem>
+            ))}
+          </RevealGroup>
         </div>
       </div>
     </section>

@@ -1,38 +1,98 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
 @theme {
+  /* ── Color ─────────────────────────────────────────────────────────── */
   /* Marca: violeta primario */
   --color-primary: #3a22b2;
-  --color-primary-dark: #2a1886; /* derivado: títulos, footer, tarjeta destacada */
-  --color-primary-soft: #ecebfe; /* derivado: fondo del Hero */
+  --color-primary-dark: #2a1886; /* títulos, footer */
+  --color-primary-soft: #ecebfe; /* fondo del Hero */
 
   /* Complementos de marca */
   --color-complement: #5e5df6; /* violeta claro */
-  --color-mint: #48e596; /* verde menta: solo decorativo o con texto oscuro (no con texto blanco) */
+  --color-mint: #48e596; /* único acento: decorativo o con texto oscuro (no con texto blanco) */
 
   /* Acento: SOLO para botones de acción (violeta primario) */
   --color-accent: #3a22b2;
-  --color-accent-dark: #5e5df6; /* hover */
+  --color-accent-hover: #2b1a8e; /* hover del botón primario: ~20% más oscuro */
+  --color-secondary: #f1eeff; /* fondo del botón secundario (sin borde): texto violeta 8.98:1 */
+  --color-secondary-hover: #e4deff; /* hover del botón secundario: lila más intenso (7.89:1) */
 
-  /* Neutros */
+  --color-mint-deep: #0e6b50; /* menta oscuro: íconos de check (contraste 3:1+ sobre blanco) */
+
+  /* Degradado sutil de los títulos (h1/h2 sobre fondo claro): ver --gradient-title */
+  --color-title-from: #4a30c8;
+  --color-title-to: #2a1886;
+
+  /* Fondos y líneas: blanco o lavanda. Nunca gris como fondo. */
   --color-surface: #ffffff;
-  --color-surface-muted: #e7ecf2; /* color secundario de marca */
-  --color-line: #d5dbe5;
+  --color-tint: #f6f4ff; /* lavanda casi blanco: secciones alternas, placeholders, chips */
+  --color-line: #e6e1ff; /* bordes y separadores finos */
+  --color-line-strong: #d4ccff; /* borde de cards en hover */
+
+  /* Texto */
   --color-ink: #2c2c2c; /* color neutro de marca */
-  --color-ink-muted: #5c6170;
+  --color-ink-muted: #5c6170; /* texto secundario (gris solo en texto) */
 
-  /* Botón flotante de WhatsApp (más oscuro que #25d366 para contraste 3:1 con el ícono) */
-  --color-whatsapp: #1a9e4b;
+  /* Funcionales (fuera de la paleta a propósito) */
+  --color-whatsapp: #1a9e4b; /* botón flotante: reconocible como WhatsApp, 3:1 con el ícono */
   --color-whatsapp-dark: #158a40;
+  --color-danger: #b42318; /* errores de formulario */
+  --color-star: #f5b400; /* estrellas de testimonios */
 
-  /* Errores de formulario */
-  --color-danger: #b42318;
+  /* ── Tipografía: escala modular (ver docs/design-tokens.md) ──────────
+     Base 16px. Ratio 1.25 en móvil (375px) → 1.333 en escritorio (1440px),
+     interpolado con clamp(). */
+  --text-display-xl: clamp(3.052rem, 2.644rem + 1.738vw, 4.209rem); /* paso 5: 49→67px (título de Seguros) */
+  --text-display-xl--line-height: 1.05;
+  --text-display-xl--letter-spacing: -0.035em;
+  --text-display: clamp(2.441rem, 2.189rem + 1.076vw, 3.157rem); /* paso 4: 39→51px (h1) */
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.03em;
+  --text-h2: clamp(1.953rem, 1.807rem + 0.624vw, 2.369rem); /* paso 3: 31→38px (h2) */
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.025em;
+  --text-h2-compact: clamp(1.563rem, 1.487rem + 0.322vw, 1.777rem); /* paso 2: 25→28px (cierre del footer) */
+  --text-h2-compact--line-height: 1.2;
+  --text-h2-compact--letter-spacing: -0.02em;
+  --text-h3: clamp(1.25rem, 1.221rem + 0.125vw, 1.333rem); /* paso 1: 20→21px (h3) */
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.01em;
+  --text-lead: clamp(1rem, 0.956rem + 0.188vw, 1.125rem); /* 16→18px (párrafos destacados) */
+  --text-lead--line-height: 1.6;
 
-  /* Estrellas de calificación (testimonios) */
-  --color-star: #d99a1e;
+  /* ── Profundidad (3 niveles, sombras con tinte violeta) ────────────── */
+  --shadow-soft: 0 1px 2px rgb(42 24 134 / 0.04), 0 4px 16px -4px rgb(42 24 134 / 0.1);
+  --shadow-raised: 0 2px 4px rgb(42 24 134 / 0.05), 0 12px 32px -8px rgb(42 24 134 / 0.2);
+  --shadow-float: 0 4px 8px rgb(42 24 134 / 0.06), 0 24px 56px -12px rgb(42 24 134 / 0.32);
+  /* Hover de cards: en capas, difusa y de baja opacidad (ver utilidad card-lift) */
+  --shadow-hover: 0 1px 2px rgb(59 37 176 / 0.04), 0 8px 16px -4px rgb(59 37 176 / 0.08), 0 24px 48px -12px rgb(59 37 176 / 0.14);
 
+  /* ── Radios: 12 (controles), 20 (cards) y pill (rounded-full) ──────── */
+  --radius-control: 0.75rem;
+  --radius-card: 1.25rem;
+  --radius-feature: 2rem; /* foto destacada de "Hola, soy Margarita" */
+
+  /* ── Movimiento: 150 / 300 / 600 ms (duration-150/300/600); JS en src/lib/motion.ts ── */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1); /* entradas y cambios de estado */
+  --ease-swap: cubic-bezier(0.65, 0, 0.35, 1); /* intercambios simétricos (RollingText) */
+
+  /* ── Layout ────────────────────────────────────────────────────────── */
   --container-content: 75rem; /* 1200px → max-w-content */
   --container-narrow: 45rem; /* 720px → max-w-narrow (FAQ, textos largos) */
+
+  /* Flotación muy lenta de los badges de "Hola, soy Margarita" */
+  --animate-float: float 7s ease-in-out infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
 
   /* Ticker de testimonios: el contenido va duplicado, así que -50% es un ciclo completo */
   --animate-marquee: marquee 60s linear infinite;
@@ -54,20 +114,233 @@
   --font-heading: var(--font-questrial), "Helvetica Neue", Arial, sans-serif;
 }
 
+/* Degradado único de todos los títulos: mismo ángulo y mismos dos tonos. */
+:root {
+  --gradient-title: linear-gradient(110deg, var(--color-title-from), var(--color-title-to));
+}
+
+/* Card con hover: sube 5px, el borde pasa a lavanda más intenso y aparece una
+   sombra en capas. La sombra vive en ::after y solo se anima su opacidad. */
+@utility card-lift {
+  position: relative;
+  border: 1px solid var(--color-line);
+  transition:
+    translate 300ms var(--ease-brand),
+    border-color 300ms var(--ease-brand);
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    box-shadow: var(--shadow-hover);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms var(--ease-brand);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      translate: 0 -5px;
+      border-color: var(--color-line-strong);
+    }
+    &:hover::after {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:hover {
+      translate: none;
+    }
+  }
+}
+
+/* Padding vertical único para todas las secciones: 80px móvil, 128px escritorio. */
+@utility section-y {
+  padding-block: 5rem;
+  @variant lg {
+    padding-block: 8rem;
+  }
+}
+
 html {
-  scroll-behavior: smooth;
+  /* El navbar flotante no tapa los títulos al navegar por anclas (Lenis usa el mismo offset) */
+  scroll-padding-top: 6rem;
+  /* Scrollbar discreta */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line-strong) transparent;
+}
+
+/* Sin Lenis (movimiento reducido o sin JS) el scroll a anclas es nativo */
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.lenis) {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
   @apply bg-surface font-sans font-light text-ink;
+  line-height: 1.6;
+  font-kerning: normal;
+}
+
+::selection {
+  background-color: var(--color-secondary-hover);
+  color: var(--color-primary-dark);
 }
 
 h1,
 h2,
 h3 {
   font-family: var(--font-heading);
+  text-wrap: balance;
 }
 
+p,
+li,
+blockquote {
+  text-wrap: pretty;
+}
+
+/* Título con degradado sutil de marca. Respaldo: color sólido. El padding
+   (compensado con margen) evita que se corten descendentes (g, p, y). */
+@utility text-gradient {
+  color: var(--color-primary-dark);
+  padding-block: 0.08em;
+  margin-block: -0.08em;
+  @supports ((background-clip: text) or (-webkit-background-clip: text)) {
+    background-image: var(--gradient-title);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* Foco elegante y consistente: anillo de 2px con 3px de separación */
 :focus-visible {
-  @apply outline-2 outline-offset-2 outline-primary;
+  @apply outline-2 outline-offset-[3px] outline-primary;
+}
+
+/* ── Aparición al entrar en pantalla (<Reveal>, RevealObserver) ──────────
+   Visible por defecto. Solo se oculta lo pendiente cuando RevealObserver ya
+   está funcionando (data-reveal-ready en <html>): si el JS falla, todo se ve.
+   Usa transform (no translate) para no pisar el hover de .card-lift. */
+html[data-reveal-ready] [data-appear] {
+  transition:
+    opacity 600ms var(--ease-brand),
+    transform 600ms var(--ease-brand),
+    filter 600ms var(--ease-brand);
+  transition-delay: var(--appear-delay, 0ms);
+}
+
+html[data-reveal-ready] [data-appear]:not([data-visible]) {
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(4px);
+}
+
+/* ── Entrada del Hero con CSS: arranca al primer pintado, sin esperar a JS ──
+   Empieza en opacidad 0.01 (invisible a la vista) y no en 0: Chrome no cuenta
+   como pintado un elemento en opacidad 0 animado en el compositor, y el LCP
+   quedaba esperando a la hidratación aunque el título ya se viera. */
+@keyframes hero-word {
+  from {
+    opacity: 0.01;
+    transform: translateY(0.35em);
+    filter: blur(4px);
+  }
+}
+
+@keyframes hero-fade {
+  from {
+    opacity: 0.01;
+    transform: translateY(12px);
+  }
+}
+
+.hero-word {
+  animation: hero-word 600ms var(--ease-brand) both;
+  animation-delay: calc(100ms + var(--i, 0) * 70ms);
+}
+
+.hero-fade {
+  animation: hero-fade 600ms var(--ease-brand) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-reveal-ready] [data-appear],
+  html[data-reveal-ready] [data-appear]:not([data-visible]) {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+  .hero-word,
+  .hero-fade {
+    animation: none;
+  }
+}
+
+/* Movimiento reducido: los elementos que entran con animación (motion) se
+   muestran en su estado final. !important gana a los estilos en línea de motion. */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+/* RollingText: texto que gira en 3D (eje X) al hacer hover/foco en un .group */
+.roll-text {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  perspective: 600px;
+  transform-style: preserve-3d;
+}
+
+.roll-front,
+.roll-back {
+  display: block;
+  backface-visibility: hidden;
+  transition:
+    transform 300ms var(--ease-swap),
+    opacity 300ms var(--ease-swap);
+}
+
+.roll-front {
+  transform-origin: 50% 100%;
+}
+
+.roll-back {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(100%) rotateX(-90deg);
+  transform-origin: 50% 0%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .group:focus-visible .roll-front {
+    opacity: 0;
+    transform: translateY(-100%) rotateX(90deg);
+  }
+  .group:focus-visible .roll-back {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (hover: hover) {
+    .group:hover .roll-front {
+      opacity: 0;
+      transform: translateY(-100%) rotateX(90deg);
+    }
+    .group:hover .roll-back {
+      opacity: 1;
+      transform: none;
+    }
+  }
 }

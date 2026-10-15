@@ -1,14 +1,11 @@
-import { site } from "@/data/site";
+import { contact } from "@/config/contact";
 
 /**
- * Arma un enlace https://wa.me/NUMERO?text=MENSAJE con el mensaje codificado.
- * Por defecto usa el número y el mensaje de src/data/site.ts.
+ * Arma un enlace https://wa.me/NUMERO?text=MENSAJE con el mensaje codificado,
+ * usando el número de src/config/contact.ts. Todos los botones y enlaces de
+ * WhatsApp del sitio deben usar esta función (y abrir en nueva pestaña).
  */
-export function whatsappLink(
-  message: string = site.whatsappMessage,
-  phone: string = site.whatsapp,
-): string {
-  const number = phone.replace(/\D/g, "");
-  const base = `https://wa.me/${number}`;
+export function getWhatsAppLink(message: string = contact.whatsappDefaultMessage): string {
+  const base = `https://wa.me/${contact.whatsappNumber}`;
   return message ? `${base}?text=${encodeURIComponent(message)}` : base;
 }

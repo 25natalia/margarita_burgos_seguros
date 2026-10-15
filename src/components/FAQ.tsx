@@ -1,6 +1,9 @@
-import { ChevronDown } from "lucide-react";
-import { SectionDivider } from "@/components/SectionDivider";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import { FaqAccordion } from "@/components/FaqAccordion";
+import { SectionHeading } from "@/components/SectionHeading";
+import { Reveal } from "@/components/motion/Reveal";
 import { site } from "@/data/site";
+import { getWhatsAppLink } from "@/lib/whatsapp";
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -15,38 +18,33 @@ const faqSchema = {
 export function FAQ() {
   return (
     <>
-      <SectionDivider fromClassName="text-surface" toClassName="bg-surface-muted" />
-      <section
-        id="preguntas-frecuentes"
-        aria-labelledby="faq-titulo"
-        className="bg-surface-muted"
-      >
-        <div className="mx-auto max-w-narrow px-4 pt-8 pb-16 sm:px-6 lg:pt-12 lg:pb-24">
-          <h2
-            id="faq-titulo"
-            className="text-center text-3xl font-extrabold tracking-tight text-primary-dark sm:text-4xl"
-          >
-            Preguntas frecuentes
-          </h2>
-
-          <div className="mt-10 space-y-3">
-            {site.faqs.map((faq) => (
-              <details
-                key={faq.question}
-                className="group rounded-2xl border border-line bg-white open:shadow-sm"
+      <section id="preguntas-frecuentes" aria-labelledby="faq-titulo" className="section-y bg-surface">
+        <div className="mx-auto grid max-w-content gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
+          {/* Columna fija: el Reveal va dentro del sticky para no romperlo con su transform */}
+          <div className="lg:sticky lg:top-32 lg:col-span-5 lg:self-start">
+            <Reveal>
+              <SectionHeading id="faq-titulo" title="Preguntas frecuentes" align="left" />
+              <p className="mt-4 max-w-prose text-lead text-ink-muted">
+                Si te queda alguna duda, escríbeme y te respondo personalmente.
+              </p>
+              <a
+                href={getWhatsAppLink("Hola Margarita, tengo una pregunta sobre un seguro.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/link mt-4 -ml-2 inline-flex min-h-11 items-center gap-2 rounded-full px-2 font-semibold text-primary transition-colors duration-150 ease-brand hover:text-primary-dark"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-5 py-4 text-left text-lg font-bold text-primary-dark sm:px-6 sm:py-5 [&::-webkit-details-marker]:hidden">
-                  {faq.question}
-                  <ChevronDown
-                    aria-hidden="true"
-                    className="size-5 shrink-0 text-primary transition-transform duration-200 group-open:rotate-180 motion-reduce:transition-none"
-                  />
-                </summary>
-                <p className="px-5 pb-5 leading-relaxed text-ink-muted sm:px-6 sm:pb-6">
-                  {faq.answer}
-                </p>
-              </details>
-            ))}
+                Pregúntame por WhatsApp
+                <ArrowRightIcon
+                  aria-hidden="true"
+                  strokeWidth={1.5}
+                  className="size-5 transition-transform duration-300 ease-brand group-hover/link:translate-x-1 motion-reduce:transition-none"
+                />
+              </a>
+            </Reveal>
+          </div>
+
+          <div className="lg:col-span-7">
+            <FaqAccordion faqs={site.faqs} />
           </div>
         </div>
       </section>

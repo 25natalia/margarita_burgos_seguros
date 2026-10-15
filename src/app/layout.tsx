@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Questrial } from "next/font/google";
+import { Header } from "@/components/Header";
+import { RevealObserver } from "@/components/motion/RevealObserver";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import "./globals.css";
 
@@ -27,6 +30,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className={`${questrial.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
+        <SmoothScroll />
+        <RevealObserver />
+        <Header />
         {children}
         <WhatsAppButton />
       </body>

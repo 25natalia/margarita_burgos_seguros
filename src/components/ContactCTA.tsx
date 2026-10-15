@@ -1,82 +1,65 @@
-import { Mail, MessageCircle, Phone } from "lucide-react";
+import { ChatBubbleOvalLeftIcon, EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import { ContactForm } from "@/components/ContactForm";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { SectionDivider } from "@/components/SectionDivider";
+import { Button } from "@/components/Button";
+import { SectionHeading } from "@/components/SectionHeading";
+import { Reveal } from "@/components/motion/Reveal";
 import { site } from "@/data/site";
-import { whatsappLink } from "@/lib/whatsapp";
+import { getWhatsAppLink } from "@/lib/whatsapp";
 
-// Sobre el fondo violeta el foco global (azul) no se ve: aquí va en blanco.
-const onDarkFocus = "focus-visible:outline-white";
+const contactLink =
+  "inline-flex min-h-11 items-center gap-2 rounded-full px-2 font-semibold transition-colors duration-150 ease-brand hover:text-secondary-hover focus-visible:outline-white";
 
 export function ContactCTA() {
   return (
-    <>
-      <SectionDivider
-        fromClassName="text-surface-muted"
-        toClassName="bg-primary"
-        direction="left"
-      />
-      <section id="contacto" aria-labelledby="contacto-titulo" className="bg-primary text-white">
-        <div className="mx-auto grid max-w-content items-center gap-12 px-4 pt-8 pb-16 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:pt-12 lg:pb-24">
-          <div className="text-center lg:text-left">
-            <div className="mx-auto max-w-sm lg:mx-0">
-              <ImagePlaceholder label="Foto de Margarita – cierre" ratio="4/3" />
-            </div>
-
-            <h2
-              id="contacto-titulo"
-              className="mt-8 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl"
-            >
-              Hablemos sin compromiso
-            </h2>
-            <p className="mt-4 text-lg text-white/85">
-              Cuéntame qué quieres proteger y te respondo hoy mismo con opciones
-              claras. Sin letra pequeña.
-            </p>
-
-            <a
-              href={whatsappLink("Hola Margarita, quiero hablar contigo sobre un seguro.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`mt-8 inline-flex w-full items-center justify-center gap-3 rounded-full bg-white px-8 py-5 text-lg font-bold text-primary shadow-lg shadow-black/20 transition-colors hover:bg-primary-soft sm:w-auto ${onDarkFocus}`}
-            >
-              <MessageCircle aria-hidden="true" className="size-6" />
-              Escríbeme por WhatsApp
-            </a>
-
-            <ul className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-8 lg:justify-start">
-              <li>
-                <a
-                  href={`tel:${site.phone.replace(/[^\d+]/g, "")}`}
-                  className={`inline-flex items-center gap-2 font-semibold hover:underline ${onDarkFocus}`}
-                >
-                  <Phone aria-hidden="true" className="size-5 text-white/70" />
-                  {site.phone}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`mailto:${site.email}`}
-                  className={`inline-flex items-center gap-2 font-semibold hover:underline ${onDarkFocus}`}
-                >
-                  <Mail aria-hidden="true" className="size-5 text-white/70" />
-                  {site.email}
-                </a>
-              </li>
-            </ul>
+    <section id="contacto" data-fab-hide aria-labelledby="contacto-titulo" className="section-y bg-primary text-white">
+      <div className="mx-auto grid max-w-content items-center gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
+        <Reveal className="text-center lg:col-span-6 lg:text-left">
+          <div className="mx-auto mb-10 max-w-sm lg:mx-0">
+            <ImagePlaceholder label="Foto de Margarita – cierre" ratio="4/3" />
           </div>
 
-          <div className="rounded-3xl bg-white p-6 text-ink shadow-2xl shadow-black/20 sm:p-8">
-            <h3 className="text-2xl font-extrabold text-primary-dark">
-              Pide tu cotización
-            </h3>
-            <p className="mt-1 mb-6 text-ink-muted">
-              Déjame tus datos y te contacto yo.
-            </p>
-            <ContactForm />
-          </div>
-        </div>
-      </section>
-    </>
+          <SectionHeading
+            id="contacto-titulo"
+            title="Hablemos sin compromiso"
+            subtitle="Cuéntame qué quieres proteger y te respondo hoy mismo con opciones claras. Sin letra pequeña."
+            align="responsive"
+            onDark
+          />
+
+          {/* Mismo texto y mensaje que el resto de CTAs de contacto general */}
+          <Button
+            href={getWhatsAppLink("Hola Margarita, quiero hablar contigo sobre un seguro.")}
+            variant="inverse"
+            size="lg"
+            icon={ChatBubbleOvalLeftIcon}
+            className="mt-10 w-full sm:w-auto"
+          >
+            Escríbeme por WhatsApp
+          </Button>
+
+          <ul className="mt-8 flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-6 lg:justify-start">
+            <li>
+              <a href={`tel:${site.phone.replace(/[^\d+]/g, "")}`} className={contactLink}>
+                <PhoneIcon aria-hidden="true" className="size-5 text-white/70" strokeWidth={1.5} />
+                {site.phone}
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${site.email}`} className={contactLink}>
+                <EnvelopeIcon aria-hidden="true" className="size-5 text-white/70" strokeWidth={1.5} />
+                {site.email}
+              </a>
+            </li>
+          </ul>
+        </Reveal>
+
+        <Reveal delay={0.1} className="rounded-card bg-white p-6 text-ink shadow-float sm:p-10 lg:col-span-6">
+          <h3 className="text-h3 font-extrabold text-primary-dark sm:text-2xl">Pide tu cotización</h3>
+          <p className="mt-1 mb-6 text-ink-muted">Déjame tus datos y te contacto yo.</p>
+          <ContactForm />
+        </Reveal>
+      </div>
+    </section>
   );
 }
