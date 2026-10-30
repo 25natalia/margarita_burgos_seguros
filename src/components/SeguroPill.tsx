@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { FocusEventHandler } from "react";
 import type { SeguroConColor } from "@/data/seguros";
 
-/** Nombres que no caben en una línea grande (ej. "Responsabilidad civil"). */
+/** Nombres que no caben en una línea grande (más de 14 caracteres). */
 const LONG_NAME = 14;
 
 /*

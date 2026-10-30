@@ -1,17 +1,19 @@
 "use client";
 
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SectionHeading } from "@/components/SectionHeading";
 import { processSteps, type ProcessStep } from "@/data/proceso";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 
 /*
- * Escritorio/tablet (≥768px, sin movimiento reducido): la sección mide 300vh y
+ * Escritorio/tablet (≥768px, sin movimiento reducido) y solo si el contenido
+ * cabe en la pantalla: la sección mide 300vh y
  * su contenido queda fijo (sticky, 100vh). El progreso de ese recorrido llena
  * la línea y activa cada paso cuando el relleno llega a su nodo; al activarse
- * el paso 3 queda un tramo quieto y luego la sección se suelta.
- * Móvil: sin pin; cada paso se activa cuando su nodo cruza el 60% de la ventana.
+ * el último paso queda un tramo quieto y luego la sección se suelta.
+ * Móvil, o si no cabe: sin pin; cada paso se activa cuando su nodo cruza el
+ * 60% de la ventana.
  * Movimiento reducido: [data-reveal] deja todo visible y activo (globals.css).
  *
  * Importante: no envolver esta sección en <Reveal> ni en nada con transform,
@@ -83,12 +85,12 @@ function TimelineStep({
         }`}
       >
         <div className="relative flex size-16 items-center justify-center rounded-card border border-line bg-linear-to-b from-white to-tint">
-          <Icon aria-hidden="true" className="size-7 text-primary" strokeWidth={1.5} />
+          <Icon aria-hidden="true" className="size-7 text-complement" strokeWidth={1.5} />
           <motion.span
             aria-hidden="true"
             data-reveal
             style={{ opacity: on }}
-            className="absolute -inset-px flex items-center justify-center rounded-card bg-primary text-white shadow-raised"
+            className="absolute -inset-px flex items-center justify-center rounded-card bg-complement text-white shadow-raised"
           >
             <Icon className="size-7" strokeWidth={1.5} />
           </motion.span>
@@ -124,7 +126,26 @@ export function HowItWorks() {
   const sectionRef = useRef<HTMLElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
-  const pinned = useMediaQuery(PIN_QUERY);
+  const blockRef = useRef<HTMLDivElement>(null);
+  const pinCapable = useMediaQuery(PIN_QUERY);
+  // El pin solo se activa si el título y todos los pasos caben en la pantalla
+  // (bajo el navbar). Con 5 pasos y descripciones largas, en pantallas bajas no
+  // caben: ahí la línea se llena y los pasos se activan con el scroll, sin fijar.
+  const [fits, setFits] = useState(false);
+  const pinned = pinCapable && fits;
+
+  useEffect(() => {
+    const block = blockRef.current;
+    if (!block) return;
+    const measure = () => setFits(block.offsetHeight + 96 + 32 <= window.innerHeight);
+    const observer = new ResizeObserver(measure);
+    observer.observe(block);
+    window.addEventListener("resize", measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
 
   // La línea va exactamente del primer al último nodo.
   useEffect(() => {
@@ -167,38 +188,40 @@ export function HowItWorks() {
       ref={sectionRef}
       id="como-funciona"
       aria-labelledby="como-funciona-titulo"
-      className="bg-surface md:motion-safe:h-[300vh]"
+      className={`bg-surface ${pinned ? "h-[300vh]" : ""}`}
     >
-      <div className="md:motion-safe:sticky md:motion-safe:top-0 md:motion-safe:flex md:motion-safe:h-svh md:motion-safe:items-center md:motion-safe:pt-20">
-        <div className="section-y mx-auto w-full max-w-content px-4 sm:px-6 lg:px-8 md:motion-safe:py-0">
-          <SectionHeading
-            id="como-funciona-titulo"
-            title="Así de fácil es protegerte"
-            subtitle="Tres pasos claros, y yo a tu lado en cada uno."
-          />
+      <div className={pinned ? "sticky top-0 flex h-svh items-center pt-20" : ""}>
+        <div className={`mx-auto w-full max-w-content px-4 sm:px-6 lg:px-8 ${pinned ? "" : "section-y"}`}>
+          <div ref={blockRef}>
+            <SectionHeading
+              id="como-funciona-titulo"
+              title="Así de fácil es protegerte"
+              subtitle="Cinco pasos claros, y yo a tu lado en cada uno."
+            />
 
-          <div ref={wrapRef} className="relative mx-auto mt-12 max-w-5xl xl:mt-16">
-            {/* Línea: lavanda de base y relleno violeta que crece con el scroll */}
-            <div
-              ref={lineRef}
-              aria-hidden="true"
-              className="absolute left-7 z-[1] w-0.5 -translate-x-1/2 overflow-hidden rounded-full bg-line md:left-1/2"
-            >
-              <motion.div data-reveal style={{ scaleY: fill }} className="absolute inset-0 origin-top bg-primary" />
+            <div ref={wrapRef} className="relative mx-auto mt-12 max-w-5xl xl:mt-16">
+              {/* Línea: lavanda de base y relleno violeta que crece con el scroll */}
+              <div
+                ref={lineRef}
+                aria-hidden="true"
+                className="absolute left-7 z-[1] w-0.5 -translate-x-1/2 overflow-hidden rounded-full bg-line md:left-1/2"
+              >
+                <motion.div data-reveal style={{ scaleY: fill }} className="absolute inset-0 origin-top bg-complement" />
+              </div>
+
+              <ol className="relative grid gap-y-10 md:gap-y-12 xl:gap-y-14">
+                {processSteps.map((step, i) => (
+                  <TimelineStep
+                    key={step.title}
+                    step={step}
+                    index={i}
+                    count={processSteps.length}
+                    pinned={pinned}
+                    pinnedFill={pinnedFill}
+                  />
+                ))}
+              </ol>
             </div>
-
-            <ol className="relative grid gap-y-14 md:gap-y-16 xl:gap-y-20">
-              {processSteps.map((step, i) => (
-                <TimelineStep
-                  key={step.title}
-                  step={step}
-                  index={i}
-                  count={processSteps.length}
-                  pinned={pinned}
-                  pinnedFill={pinnedFill}
-                />
-              ))}
-            </ol>
           </div>
         </div>
       </div>

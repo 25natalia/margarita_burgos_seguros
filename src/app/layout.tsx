@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Questrial } from "next/font/google";
+import { CookieBanner } from "@/components/CookieBanner";
 import { Header } from "@/components/Header";
 import { RevealObserver } from "@/components/motion/RevealObserver";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
@@ -17,7 +18,7 @@ const questrial = Questrial({
 export const metadata: Metadata = {
   title: "Margarita Burgos · Asesora de seguros en Colombia",
   description:
-    "Asesoría personalizada en seguros de vida, salud, auto y hogar. Escríbele a Margarita Burgos por WhatsApp y recibe una cotización sin compromiso.",
+    "Asesoría personalizada en seguros de vida, salud, hogar, autos, negocio y planes de ahorro en pesos o dólares. Escríbele a Margarita Burgos por WhatsApp y recibe una cotización sin compromiso.",
 };
 
 // viewportFit "cover" activa env(safe-area-inset-*) en iPhone (botón flotante).
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         {children}
         <WhatsAppButton />
+        <CookieBanner />
       </body>
     </html>
   );

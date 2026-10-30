@@ -1,7 +1,8 @@
-import { ChatBubbleOvalLeftIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import { ChatBubbleOvalLeftIcon, EnvelopeIcon, MapPinIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import type { ComponentType, ReactNode, SVGProps } from "react";
+import { CookiePreferencesButton } from "@/components/CookieBanner";
 import { InstagramIcon } from "@/components/InstagramIcon";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { contact } from "@/config/contact";
@@ -31,7 +32,7 @@ function FooterLink({
   children: ReactNode;
   icon?: ComponentType<SVGProps<SVGSVGElement>>;
 }) {
-  const external = /^https?:/.test(href);
+  const external = /^(https?:|mailto:|tel:)/.test(href);
   const className =
     "group/fl inline-flex min-h-11 items-center gap-2 rounded-full text-white/70 transition-colors duration-150 ease-brand hover:text-white focus-visible:outline-white lg:min-h-0";
   const content = (
@@ -80,10 +81,10 @@ export function Footer() {
           <RevealItem className="lg:col-span-3">
             {/* Logo en blanco con filtro (no hay versión blanca del SVG) */}
             <Image
-              src="/logo-margarita.svg"
+              src="/margarita_burgos_logo.svg"
               alt={site.name}
-              width={948}
-              height={324}
+              width={1001}
+              height={342}
               unoptimized
               className="h-10 w-auto brightness-0 invert"
             />
@@ -104,7 +105,7 @@ export function Footer() {
             </ul>
           </RevealItem>
 
-          <RevealItem className="lg:col-span-4">
+          <RevealItem className="lg:col-span-3 xl:col-span-4">
             <h3 className={columnTitle}>Seguros</h3>
             {/* En escritorio, 2 subcolumnas para que el footer quede compacto */}
             <ul className={`${linkList} lg:grid lg:grid-cols-2 lg:gap-x-6 lg:gap-y-2 lg:space-y-0`}>
@@ -116,12 +117,23 @@ export function Footer() {
             </ul>
           </RevealItem>
 
-          <RevealItem className="lg:col-span-3">
+          {/* Entre 1024 y 1280px la columna crece para que quepa el correo */}
+          <RevealItem className="lg:col-span-4 xl:col-span-3">
             <h3 className={columnTitle}>Contacto</h3>
             <ul className={linkList}>
               <li>
                 <FooterLink href={getWhatsAppLink()} icon={ChatBubbleOvalLeftIcon}>
                   WhatsApp
+                </FooterLink>
+              </li>
+              <li>
+                <FooterLink href={`tel:${contact.phone}`} icon={PhoneIcon}>
+                  {contact.phoneDisplay}
+                </FooterLink>
+              </li>
+              <li>
+                <FooterLink href={`mailto:${contact.email}`} icon={EnvelopeIcon}>
+                  {contact.email}
                 </FooterLink>
               </li>
               <li className="flex min-h-11 items-center gap-2 text-white/70 lg:min-h-0">
@@ -133,19 +145,24 @@ export function Footer() {
           </RevealItem>
         </RevealGroup>
 
-        {/* Línea final: copyright a la izquierda; legales e Instagram a la derecha */}
-        <div className="flex flex-col gap-4 border-t border-white/15 pt-6 text-sm text-white/70 lg:flex-row lg:items-center lg:justify-between">
+        {/* Línea final: copyright y, debajo (en una fila desde 1280px), legales e Instagram */}
+        <div className="flex flex-col gap-4 border-t border-white/15 pt-6 text-sm text-white/70 xl:flex-row xl:items-center xl:justify-between">
           <p>
             © {year} {site.name}. Todos los derechos reservados.
           </p>
           <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-6">
-            {/* TODO (Margarita): páginas reales de privacidad y de tratamiento de datos (Ley 1581 de 2012). */}
-            <ul className="flex flex-col lg:flex-row lg:gap-6">
+            <ul className="flex flex-col lg:flex-row lg:gap-6 lg:whitespace-nowrap">
               <li>
-                <FooterLink href={site.privacyPolicyUrl}>Política de privacidad</FooterLink>
+                <FooterLink href={site.privacyPolicyUrl}>Tratamiento de datos</FooterLink>
               </li>
               <li>
-                <FooterLink href={site.privacyPolicyUrl}>Tratamiento de datos (Ley 1581 de 2012)</FooterLink>
+                <FooterLink href={site.termsUrl}>Términos y condiciones</FooterLink>
+              </li>
+              <li>
+                <FooterLink href={site.cookiesUrl}>Cookies</FooterLink>
+              </li>
+              <li>
+                <CookiePreferencesButton className="inline-flex min-h-11 items-center rounded-full text-left text-white/70 transition-colors duration-150 ease-brand hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:min-h-0" />
               </li>
             </ul>
             <a

@@ -125,7 +125,7 @@ export function Services() {
 
             {pinned && (
               <div aria-hidden="true" className="mt-12 flex items-end gap-8">
-                <p className="font-heading text-6xl leading-none font-extrabold tracking-tight text-primary tabular-nums">
+                <p className="font-heading text-6xl leading-none font-extrabold tracking-tight text-complement tabular-nums">
                   <AnimatePresence mode="popLayout" initial={false}>
                     <motion.span
                       key={activeIndex}
@@ -181,7 +181,7 @@ export function Services() {
               </ul>
               {/* Progreso de la sección */}
               <div aria-hidden="true" className="absolute top-[18%] right-0 bottom-[18%] w-1 overflow-hidden rounded-full bg-line">
-                <motion.div style={{ scaleY: scrollYProgress }} className="absolute inset-0 origin-top bg-primary" />
+                <motion.div style={{ scaleY: scrollYProgress }} className="absolute inset-0 origin-top bg-complement" />
               </div>
             </div>
           ) : (

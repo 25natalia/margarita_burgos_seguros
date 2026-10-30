@@ -156,7 +156,7 @@ export function ContactForm() {
     // dentro del mismo clic, para que el navegador no lo bloquee.
     const name = values.name.trim();
     const href = getWhatsAppLink(
-      `Hola Margarita, soy ${name}. Quiero cotizar: ${values.insurance}. Mi WhatsApp: +57 ${values.phone}.`,
+      `Hola Margarita, te escribo desde tu página web. Soy ${name}. Me interesa: ${values.insurance}. Mi WhatsApp: +57 ${values.phone}.`,
     );
     window.open(href, "_blank", "noopener,noreferrer");
     setLead({ name, href });

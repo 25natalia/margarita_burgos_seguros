@@ -1,4 +1,5 @@
-// Datos de contacto reales de Margarita. Fuente única para WhatsApp e Instagram.
+// Datos de contacto reales de Margarita. Fuente única para WhatsApp, teléfono,
+// correo e Instagram.
 
 export const contact = {
   /**
@@ -10,6 +11,10 @@ export const contact = {
   /** Enlace corto original (wa.link). No admite mensajes prellenados: usar getWhatsAppLink(). */
   whatsappShortLink: "https://wa.link/kgwlmn",
   /** Mensaje por defecto cuando no hay uno específico del contexto. */
-  whatsappDefaultMessage: "Hola Margarita, vi tu página y quiero información sobre un seguro.",
+  whatsappDefaultMessage: "Hola Margarita, te escribo desde tu página web. Quiero información sobre un seguro.",
+  /** Teléfono para llamadas (el mismo número de WhatsApp). */
+  phone: "+573176751328",
+  phoneDisplay: "317 675 1328",
+  email: "mbseguros.gerencia@gmail.com",
   instagram: "https://www.instagram.com/margarita_burgos_seguros/",
 } as const;

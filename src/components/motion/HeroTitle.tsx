@@ -14,14 +14,17 @@ import { useLayoutEffect, useRef, type CSSProperties } from "react";
  * transform), así que todas usan el mismo degradado del tamaño del título
  * completo, desplazado según la posición de la palabra. Juntas forman un único
  * degradado continuo. Se mide con offsetLeft/offsetTop (no les afecta el transform).
+ * Sobre fondo violeta (onDark) va en blanco, sin degradado.
  */
 export function HeroTitle({
   text,
   id,
+  onDark = false,
   className = "",
 }: {
   text: string;
   id?: string;
+  onDark?: boolean;
   className?: string;
 }) {
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -29,7 +32,7 @@ export function HeroTitle({
 
   useLayoutEffect(() => {
     const title = titleRef.current;
-    if (!title) return;
+    if (!title || onDark) return;
     const update = () => {
       const size = `${title.clientWidth}px ${title.clientHeight}px`;
       title.querySelectorAll<HTMLElement>("[data-word]").forEach((word) => {
@@ -41,7 +44,7 @@ export function HeroTitle({
     const observer = new ResizeObserver(update);
     observer.observe(title);
     return () => observer.disconnect();
-  }, []);
+  }, [onDark]);
 
   return (
     <h1 ref={titleRef} id={id} className={`relative ${className}`}>
@@ -51,7 +54,7 @@ export function HeroTitle({
           <span key={i}>
             <span
               data-word
-              className="hero-word text-gradient inline-block bg-no-repeat"
+              className={`hero-word inline-block ${onDark ? "text-white" : "text-gradient bg-no-repeat"}`}
               style={{ "--i": i } as CSSProperties}
             >
               {word}

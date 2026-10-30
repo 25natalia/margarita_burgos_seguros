@@ -21,8 +21,9 @@ Todo está orientado a que el visitante escriba por WhatsApp o deje sus datos.
 ## Reglas
 
 - **Wireframe de alta fidelidad**: layout, tipografía, espaciados y estilos reales con Tailwind; textos reales en español (Colombia).
-- **Imágenes**: usar `ImagePlaceholder` (bloque gris suave con la proporción correcta, ícono de imagen y etiqueta que dice qué foto va). Debe ser fácil reemplazarlo luego por `next/image` con las mismas dimensiones.
+- **Imágenes**: fotos reales en `public/imagenes` (reconocimientos en `src/data/reconocimientos.ts`, foto de Sobre mí y avatar en `site.ts`), logos de aseguradoras en `public/logos` (`src/data/aseguradoras.ts`) y logo de Margarita en `public/margarita_burgos_logo.svg`. Favicon: `src/app/icon.svg`. Donde aún no haya foto, usar `ImagePlaceholder` (bloque gris suave con la proporción correcta, ícono de imagen y etiqueta que dice qué foto va). Debe ser fácil reemplazarlo luego por `next/image` con las mismas dimensiones.
 - **Paleta de marca**: violeta primario `#3A22B2` (`primary`, con `primary-dark` y `primary-soft` derivados), neutro `#2C2C2C` (`ink`), complemento `#5E5DF6` (`complement`) y verde menta `#48E596` (`mint`, único acento).
+  - `complement` tiene 4.8:1 sobre blanco y 4.4:1 sobre `tint`: usarlo en íconos, cifras grandes, barras de progreso, inicio del degradado de títulos y fondos con texto blanco. No en texto pequeño sobre `tint` ni en los botones (siguen en `accent`).
 - **Cero fondos grises**: los fondos son blanco (`surface`) o lavanda (`tint` `#F6F4FF`); bordes y separadores en `line` (`#E6E1FF`). El gris (`ink-muted`) solo se usa en texto secundario.
   - Los botones de acción (CTA) usan `accent`, que es el violeta primario con texto blanco. Sobre fondos violeta, el CTA va en blanco con texto violeta.
   - `mint` es solo decorativo o con texto oscuro: con texto blanco no cumple contraste.
@@ -50,9 +51,12 @@ Todo está orientado a que el visitante escriba por WhatsApp o deje sus datos.
 - **Layout**: ancho máximo de contenido ~1200px (`max-w-content`), espaciado generoso entre secciones.
 - **Componentes de servidor por defecto**; `"use client"` solo donde haga falta (acordeón del FAQ, formulario, etc.).
 - **Datos editables** (nombre, contacto, redes, textos que la clienta cambiará) en `src/data/site.ts`. No hardcodear números ni correos en los componentes.
-- **Formulario de contacto**: al enviar abre WhatsApp (en el mismo clic, para que el navegador no lo bloquee) con nombre, celular y seguro en el mensaje, y luego muestra el estado de enviado. Campos con estilo relleno y label flotante (`FloatingField` en ContactForm.tsx). El sitio no publica teléfono ni correo.
-- **Contacto real** en `src/config/contact.ts` (número de WhatsApp, Instagram). Enlaces de WhatsApp siempre con `getWhatsAppLink(mensaje)` de `src/lib/whatsapp.ts` (wa.me con mensaje prellenado según el contexto) y en nueva pestaña.
+- **Mensajes de WhatsApp**: siempre empiezan con "Hola Margarita, te escribo desde tu página web."
+- **Formulario de contacto**: al enviar abre WhatsApp (en el mismo clic, para que el navegador no lo bloquee) con nombre, celular y seguro en el mensaje, y luego muestra el estado de enviado. Campos con estilo relleno y label flotante (`FloatingField` en ContactForm.tsx). Teléfono y correo solo se muestran en la columna Contacto del footer.
+- **Contacto real** en `src/config/contact.ts` (WhatsApp, teléfono, correo, Instagram). Enlaces de WhatsApp siempre con `getWhatsAppLink(mensaje)` de `src/lib/whatsapp.ts` (wa.me con mensaje prellenado según el contexto) y en nueva pestaña.
 - **Cards con hover**: utilidad `card-lift` (sube 5px, borde lavanda más intenso, sombra en capas en `::after`). No usar sombras de hover sueltas.
+- **Legal (Colombia)**: páginas `/politica-de-datos` (Ley 1581 de 2012), `/terminos` y `/cookies` con la plantilla `LegalPage`; datos del responsable en `site.legal`. `CookieBanner` (layout) guarda la elección en la cookie `mb_consent` (`src/lib/consent.ts`): cualquier script de analítica o publicidad se carga solo si `readConsent() === "all"` y se agrega a la tabla de /cookies.
+- **Seguridad**: cabeceras (CSP, HSTS, X-Frame-Options, etc.) en `next.config.ts`. Si se agrega un servicio externo (analítica, mapas, fuentes remotas), ampliar la CSP.
 - **No hacer commits ni push**: el usuario maneja las ramas.
 
 ## Orden de secciones
@@ -60,12 +64,13 @@ Todo está orientado a que el visitante escriba por WhatsApp o deje sus datos.
 1. Hero
 2. TrustBar
 3. About
-4. Services ("Seguros que ofrezco", `#servicios`)
-5. HowItWorks
-6. Testimonials
-7. FAQ
-8. ContactCTA
-9. Footer
+4. Recognitions ("Reconocida por las aseguradoras", `#reconocimientos`)
+5. Services ("Seguros que ofrezco", `#servicios`)
+6. HowItWorks
+7. Testimonials
+8. FAQ
+9. ContactCTA
+10. Footer
 
 Más `WhatsAppButton` flotante visible en toda la página.
 
@@ -73,6 +78,8 @@ Cada sección vive en `src/components/<Nombre>.tsx` y se compone en `src/app/pag
 
 ## Páginas de seguros
 
+- Preguntas frecuentes agrupadas en `site.faqGroups` (respuesta + `bullets` opcionales).
+- Seguros: Vida, Salud, Ahorro en pesos, Ahorro en dólares (datos de las FAQ de Margarita) y Hogar, Autos y Negocio (patrimoniales, contenido provisional: TODO confirmar con Margarita). Las aseguradoras de cada página son las aliadas (`site.insurers`).
 - Datos en `src/data/seguros.ts` (fuente única para la sección Services y para `/seguros/[slug]`). Pasos del proceso en `src/data/proceso.ts`.
 - `/seguros/[slug]` se genera estáticamente (`generateStaticParams`, `dynamicParams = false`); slugs desconocidos van a `src/app/not-found.tsx`.
 - No inventar aseguradoras ni cifras de coberturas: dejar placeholders con TODO.
@@ -82,16 +89,17 @@ Cada sección vive en `src/components/<Nombre>.tsx` y se compone en `src/app/pag
 
 - Componentes de animación (cliente) en `src/components/motion/`: `HeroTitle`, `FadeIn`, `CountUp`, `StickyHero`, `Reveal`.
 - El botón flotante de WhatsApp se oculta sobre todo lo marcado con `data-fab-hide` (contacto y footer).
-- Secciones fijadas por scroll: Seguros (≥1024px, 450vh) y Proceso (≥768px, 300vh). Ningún ancestro puede tener transform, overflow, filter o contain.
+- Secciones fijadas por scroll: Seguros (≥1024px, 450vh) y Proceso (≥768px, 300vh, solo si el contenido cabe en la pantalla). Ningún ancestro puede tener transform, overflow, filter o contain.
 - Colores de las píldoras: `colorRamp` en `src/data/seguros.ts` (la píldora i va de colorRamp[i] a colorRamp[i+1]).
 - `RollingText`: texto que gira en 3D al hover/foco; solo CSS (`.roll-*` en globals.css). El botón que lo contiene necesita la clase `group`.
+- Hero sobre `primary-dark` con texto blanco (`HeroTitle onDark`) y la foto `site.heroPhoto` a la derecha (debajo en móvil), fundida con `mask-image`. Nunca poner texto encima de la foto.
 - El Hero queda fijo (`StickyHero`) y el resto del contenido va dentro de `#cortina` en page.tsx, que sube por encima. No sacar secciones de la cortina.
 - Elementos que entran con animación llevan `data-reveal`: con movimiento reducido, globals.css los fuerza a su estado final. No ramificar el render según `useReducedMotion` (rompe la hidratación).
 - Animar solo `transform` y `opacity`. Respetar `prefers-reduced-motion` siempre (`useReducedMotion`, `motion-safe:`/`motion-reduce:`).
 
 ## Componentes base
 
-- `src/components/InsurerLogos.tsx`: fila de logos de aseguradoras (placeholders).
+- `src/components/InsurerLogos.tsx`: fila de logos de aseguradoras (`src/data/aseguradoras.ts`; si no hay logo, muestra el nombre).
 - `src/components/SeguroPill.tsx`: píldora con degradado que enlaza a un seguro.
 - `src/components/ImagePlaceholder.tsx`: placeholder de imagen con etiqueta y proporción.
 

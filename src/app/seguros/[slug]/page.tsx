@@ -38,7 +38,7 @@ export default async function SeguroPage({ params }: PageProps<"/seguros/[slug]"
   if (!seguro) notFound();
 
   const Icon = seguro.icon;
-  const quoteHref = getWhatsAppLink(`Hola Margarita, quiero cotizar ${seguro.quoteLabel}`);
+  const quoteHref = getWhatsAppLink(`Hola Margarita, te escribo desde tu página web. Quiero cotizar ${seguro.quoteLabel}.`);
 
   return (
     <>
@@ -128,12 +128,12 @@ export default async function SeguroPage({ params }: PageProps<"/seguros/[slug]"
               <Reveal>
                 <SectionHeading
                   id="aseguradoras"
-                  title="Aseguradoras con las que lo puedes tener"
+                  title="Mis aseguradoras aliadas"
                   subtitle="Comparo entre ellas para que elijas la que mejor te queda."
                 />
               </Reveal>
               <div className="mt-12 lg:mt-16">
-                <InsurerLogos insurers={seguro.insurers} />
+                <InsurerLogos insurers={site.insurers} />
               </div>
             </div>
           </section>
@@ -143,14 +143,19 @@ export default async function SeguroPage({ params }: PageProps<"/seguros/[slug]"
               <Reveal>
                 <SectionHeading id="acompano" title="Cómo te acompaño" />
               </Reveal>
-              <RevealGroup as="ol" className="mx-auto mt-12 grid max-w-5xl gap-4 md:grid-cols-3 lg:mt-16">
+              {/* 5 pasos: filas centradas (3 + 2 en escritorio, 2 en tablet, 1 en móvil) */}
+              <RevealGroup as="ol" className="mx-auto mt-12 flex max-w-5xl flex-wrap justify-center gap-4 lg:mt-16">
                 {processSteps.map((step, i) => {
                   const StepIcon = step.icon;
                   return (
-                    <RevealItem as="li" key={step.title} className="rounded-card border border-line bg-white p-6">
+                    <RevealItem
+                      as="li"
+                      key={step.title}
+                      className="basis-full rounded-card border border-line bg-white p-6 md:basis-[calc(50%-0.5rem)] lg:basis-[calc(33.333%-0.667rem)]"
+                    >
                       <div className="flex items-center gap-3">
                         <span className="flex size-12 items-center justify-center rounded-control bg-tint">
-                          <StepIcon aria-hidden="true" className="size-6 text-primary" strokeWidth={1.5} />
+                          <StepIcon aria-hidden="true" className="size-6 text-complement" strokeWidth={1.5} />
                         </span>
                         <span className="rounded-full bg-tint px-3 py-1 text-xs font-bold text-primary tabular-nums">
                           {String(i + 1).padStart(2, "0")}

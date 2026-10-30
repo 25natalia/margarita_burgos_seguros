@@ -3,6 +3,7 @@
 import { ChatBubbleOvalLeftIcon } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { contact } from "@/config/contact";
 import { getSeguro } from "@/data/seguros";
 import { site } from "@/data/site";
 import { getWhatsAppLink } from "@/lib/whatsapp";
@@ -55,8 +56,8 @@ export function WhatsAppButton() {
 
   const seguro = pathname.startsWith("/seguros/") ? getSeguro(pathname.split("/")[2] ?? "") : undefined;
   const message = seguro
-    ? `Hola Margarita, quiero cotizar ${seguro.quoteLabel}`
-    : "Hola Margarita, vi tu página y quiero información sobre un seguro.";
+    ? `Hola Margarita, te escribo desde tu página web. Quiero cotizar ${seguro.quoteLabel}.`
+    : contact.whatsappDefaultMessage;
   const visible = afterHero && hidingCount === 0;
 
   return (

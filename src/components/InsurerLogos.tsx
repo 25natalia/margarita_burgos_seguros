@@ -1,26 +1,36 @@
-import { ShieldCheckIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
 import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { insurerLogos } from "@/data/aseguradoras";
 
 /**
- * Fila de logos de aseguradoras (placeholders en lavanda). Se usa en la TrustBar
- * de la home y en las páginas de detalle de cada seguro.
+ * Logos de las aseguradoras directamente sobre el fondo, separados por líneas
+ * finas (igual que las cifras de la TrustBar). Si un nombre no tiene logo en
+ * src/data/aseguradoras.ts, se muestra el texto. Se usa en la TrustBar y en
+ * las páginas de cada seguro.
  */
 export function InsurerLogos({ insurers }: { insurers: readonly string[] }) {
   return (
-    <RevealGroup as="ul" className="flex flex-wrap justify-center gap-4">
-      {insurers.map((insurer) => (
-        <RevealItem
-          as="li"
-          key={insurer}
-          className="card-lift flex h-14 basis-[calc(50%-0.5rem)] items-center justify-center gap-2 rounded-control bg-white px-3 text-xs font-semibold text-ink-muted sm:basis-44 lg:flex-1"
-        >
-          <ShieldCheckIcon aria-hidden="true" className="size-5 shrink-0 text-primary/60" strokeWidth={1.5} />
-          <span>
-            Logo aseguradora
-            <span className="sr-only">: {insurer}</span>
-          </span>
-        </RevealItem>
-      ))}
+    // 3 columnas: SURA, Skandia y Dominion (site.insurers).
+    <RevealGroup as="ul" className="mx-auto grid max-w-4xl grid-cols-3 divide-x divide-line">
+      {insurers.map((insurer) => {
+        const logo = insurerLogos[insurer];
+        return (
+          <RevealItem as="li" key={insurer} className="flex h-16 items-center justify-center px-3 sm:h-20 sm:px-8">
+            {logo ? (
+              <Image
+                src={logo.src}
+                alt={insurer}
+                width={logo.width}
+                height={logo.height}
+                sizes="200px"
+                className={`${logo.className} w-auto max-w-full object-contain transition-transform duration-300 ease-brand hover:scale-105 motion-reduce:transition-none motion-reduce:hover:scale-100`}
+              />
+            ) : (
+              <span className="font-heading text-lg font-extrabold text-ink-muted">{insurer}</span>
+            )}
+          </RevealItem>
+        );
+      })}
     </RevealGroup>
   );
 }

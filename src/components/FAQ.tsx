@@ -8,11 +8,16 @@ import { getWhatsAppLink } from "@/lib/whatsapp";
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: site.faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: { "@type": "Answer", text: faq.answer },
-  })),
+  mainEntity: site.faqGroups
+    .flatMap((group) => group.items)
+    .map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.bullets ? `${faq.answer} ${faq.bullets.join(" ")}` : faq.answer,
+      },
+    })),
 };
 
 export function FAQ() {
@@ -28,7 +33,7 @@ export function FAQ() {
                 Si te queda alguna duda, escríbeme y te respondo personalmente.
               </p>
               <a
-                href={getWhatsAppLink("Hola Margarita, tengo una pregunta sobre un seguro.")}
+                href={getWhatsAppLink("Hola Margarita, te escribo desde tu página web. Tengo una pregunta sobre un seguro.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group/link mt-4 -ml-2 inline-flex min-h-11 items-center gap-2 rounded-full px-2 font-semibold text-primary transition-colors duration-150 ease-brand hover:text-primary-dark"
@@ -44,7 +49,7 @@ export function FAQ() {
           </div>
 
           <div className="lg:col-span-7">
-            <FaqAccordion faqs={site.faqs} />
+            <FaqAccordion groups={site.faqGroups} />
           </div>
         </div>
       </section>

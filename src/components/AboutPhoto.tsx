@@ -1,9 +1,9 @@
 "use client";
 
-import { CalendarDaysIcon, UserGroupIcon } from "@heroicons/react/24/outline";
+import { CalendarDaysIcon, DocumentCheckIcon } from "@heroicons/react/24/outline";
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from "motion/react";
+import Image from "next/image";
 import { useRef, type PointerEvent } from "react";
-import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { Reveal } from "@/components/motion/Reveal";
 import { site } from "@/data/site";
 import { spring } from "@/lib/motion";
@@ -25,7 +25,7 @@ const badges = [
   },
   {
     stat: site.stats[1],
-    icon: UserGroupIcon,
+    icon: DocumentCheckIcon,
     position: "bottom-3 right-3 lg:bottom-14 lg:-right-8",
     floatDelay: "-3.5s",
   },
@@ -78,12 +78,15 @@ export function AboutPhoto() {
       />
 
       <motion.div style={{ rotateX, rotateY }} className="relative [transform-style:preserve-3d]">
-        <ImagePlaceholder
-          label="Foto de Margarita en su oficina o con clientes"
-          ratio="4/5"
-          radius="rounded-feature"
-          className="shadow-raised"
-        />
+        <div className="relative aspect-[4/5] overflow-hidden rounded-feature bg-secondary shadow-raised">
+          <Image
+            src={site.aboutPhoto}
+            alt={`${site.name} en la Convención SURA`}
+            fill
+            sizes="(min-width: 1024px) 560px, (min-width: 640px) 448px, 100vw"
+            className="object-cover"
+          />
+        </div>
 
         {badges.map(({ stat, icon: Icon, position, floatDelay }, i) => (
           <div key={stat.label} className={`absolute ${position}`} style={{ transform: "translateZ(40px)" }}>
@@ -93,10 +96,10 @@ export function AboutPhoto() {
                 style={{ animationDelay: floatDelay }}
               >
                 <span className="flex size-10 shrink-0 items-center justify-center rounded-control bg-tint">
-                  <Icon aria-hidden="true" className="size-5 text-primary" strokeWidth={1.5} />
+                  <Icon aria-hidden="true" className="size-5 text-complement" strokeWidth={1.5} />
                 </span>
                 <span className="leading-tight">
-                  <span className="block font-heading text-xl font-extrabold text-primary">
+                  <span className="block font-heading text-xl font-extrabold text-complement">
                     {stat.prefix}
                     {stat.value}
                   </span>

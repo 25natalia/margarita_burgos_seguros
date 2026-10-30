@@ -77,15 +77,18 @@ margarita-burgos-seguros/
 
 | Orden | Sección              | Propósito                                                                 |
 | ----- | -------------------- | ------------------------------------------------------------------------- |
-| 1     | Hero                 | Foto de Margarita, mensaje principal y botón de cotizar por WhatsApp      |
-| 2     | Barra de confianza   | Años de experiencia, clientes asesorados y logos de aseguradoras          |
-| 3     | Servicios            | Tipos de seguros ofrecidos, cada uno con su botón de cotización           |
-| 4     | Sobre Margarita      | Historia, experiencia, certificaciones y segunda foto                     |
-| 5     | Cómo funciona        | Proceso en tres pasos para quitar dudas sobre la contratación             |
-| 6     | Testimonios          | Opiniones reales de clientes                                              |
-| 7     | Preguntas frecuentes | Respuestas a objeciones comunes y apoyo al SEO                            |
-| 8     | Contacto / CTA       | Llamado final, formulario corto y datos de contacto                       |
-| 9     | Footer               | Contacto, redes sociales y aviso de tratamiento de datos                  |
+| 1     | Hero                 | Mensaje principal y botón de cotizar por WhatsApp                         |
+| 2     | Barra de confianza   | Años de experiencia, pólizas activas, certificaciones y aseguradoras      |
+| 3     | Sobre Margarita      | Historia familiar, foto, pilares y certificaciones                        |
+| 4     | Reconocimientos      | Fotos de premios y reconocimientos de SURA y Skandia                      |
+| 5     | Seguros              | Tipos de seguros ofrecidos, cada uno con su página                        |
+| 6     | Cómo funciona        | Proceso en cinco pasos, de la primera charla a la entrega de la póliza    |
+| 7     | Testimonios          | Opiniones de clientes                                                     |
+| 8     | Preguntas frecuentes | Ahorro, salud, vida y seguros patrimoniales                               |
+| 9     | Contacto / CTA       | Llamado final y formulario que abre WhatsApp                              |
+| 10    | Footer               | Contacto, redes y enlaces legales                                         |
+
+Páginas legales: `/politica-de-datos`, `/terminos` y `/cookies`.
 
 ## Manejo de ramas
 
@@ -163,6 +166,12 @@ El sitio se despliega en [Vercel](https://vercel.com/). Al conectar el repositor
 ## Contacto
 
 **Margarita Burgos** – Asesora de Seguros
+
+- WhatsApp y teléfono: 317 675 1328
+- Correo: mbseguros.gerencia@gmail.com
+- Instagram: [@margarita_burgos_seguros](https://www.instagram.com/margarita_burgos_seguros/)
+
+Los datos de contacto se editan en `src/config/contact.ts`.
 
 ---
 

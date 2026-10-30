@@ -83,7 +83,7 @@ export function ContactCTA() {
           {/* Vía directa, discreta */}
           <p className="mt-6 text-center">
             <a
-              href={getWhatsAppLink("Hola Margarita, quiero hablar contigo sobre un seguro.")}
+              href={getWhatsAppLink("Hola Margarita, te escribo desde tu página web. Quiero hablar contigo sobre un seguro.")}
               target="_blank"
               rel="noopener noreferrer"
               className="group/wa inline-flex min-h-11 items-center gap-2 rounded-full px-2 text-white/80 transition-colors duration-150 ease-brand hover:text-white focus-visible:outline-white"

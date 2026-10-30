@@ -18,7 +18,7 @@ export function TrustBar() {
               <dt className="text-sm leading-snug text-ink-muted sm:text-base">
                 {stat.label}
               </dt>
-              <dd className="font-heading text-4xl font-extrabold tracking-tight text-primary sm:text-6xl">
+              <dd className="font-heading text-4xl font-extrabold tracking-tight text-complement sm:text-6xl">
                 <CountUp value={stat.value} prefix={stat.prefix} />
               </dd>
             </RevealItem>
@@ -26,6 +26,7 @@ export function TrustBar() {
         </RevealGroup>
 
         <div className="mt-16 lg:mt-20">
+          <p className="mb-6 text-center text-ink-muted">Comparo por ti entre mis aseguradoras aliadas</p>
           <InsurerLogos insurers={site.insurers} />
         </div>
       </div>

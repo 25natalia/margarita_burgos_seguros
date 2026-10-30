@@ -9,11 +9,11 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { site } from "@/data/site";
 
-// Pilares: frases que ya están en el texto de presentación.
+// Pilares: resumen de la presentación y del proceso de Margarita.
 const pillars = [
-  { title: "Te hablo claro", text: "Cada póliza en palabras claras.", icon: ChatBubbleLeftRightIcon, iconSolid: ChatSolid },
-  { title: "Comparo por ti", text: "Opciones de varias aseguradoras.", icon: ScaleIcon, iconSolid: ScaleSolid },
-  { title: "Te acompaño siempre", text: "También en cada reclamación.", icon: ShieldCheckIcon, iconSolid: ShieldSolid },
+  { title: "Te hablo claro", text: "Asesoría transparente e integral.", icon: ChatBubbleLeftRightIcon, iconSolid: ChatSolid },
+  { title: "Comparo por ti", text: "Entre SURA, Skandia y Dominion.", icon: ScaleIcon, iconSolid: ScaleSolid },
+  { title: "Te acompaño siempre", text: "Para cualquier gestión futura.", icon: ShieldCheckIcon, iconSolid: ShieldSolid },
 ];
 
 export function About() {
@@ -31,43 +31,44 @@ export function About() {
 
           <Reveal delay={0.1} className="mt-6 max-w-prose space-y-4 text-lead text-ink-muted">
             <p>
-              Me dediqué a los seguros porque{" "}
-              <strong className="font-semibold text-primary-dark">vi de cerca lo que pasa</strong> cuando una
-              familia no está protegida: un accidente o una enfermedad puede
-              cambiarlo todo de un día para otro. Mi trabajo es que eso no te
-              pase a ti.
+              Crecí viendo a mi familia dedicar su vida a esta profesión. Mi abuelo
+              empezó a trabajar en seguros SURA cuando todavía se llamaba
+              Suramericana, ocupó diferentes cargos hasta convertirse en asesor, y
+              eso nos motivó a varios en la familia a involucrarnos en el sector.
             </p>
             <p>
-              Llevo más de {site.yearsExperience} años asesorando a familias y
-              empresas en Colombia. Te explico cada póliza en palabras claras,
-              comparo opciones entre varias aseguradoras y te ayudo a elegir lo
-              que de verdad necesitas, sin pagar de más.
+              Con el tiempo comprendí la importancia de{" "}
+              <strong className="font-semibold text-primary-dark">
+                llevar los seguros a las familias brindándoles tranquilidad
+              </strong>
+              . Eso me motivó a seguir este camino: acompañar a más familias a
+              proteger su tranquilidad, su familia y su patrimonio, con una asesoría
+              transparente e integral.
             </p>
             <p>
-              Pero lo más importante llega después de firmar:{" "}
-              <strong className="font-semibold text-ink">
-                cuando pasa algo, no te quedas solo frente a la aseguradora.
-              </strong>{" "}
-              Yo te acompaño en cada reclamación, de principio a fin.
+              Asesoro desde {site.startYear} y hoy acompaño a mis clientes en más de{" "}
+              {site.stats[1].value} pólizas activas.
             </p>
           </Reveal>
 
-          {/* Pilares: en hover se elevan y el ícono se rellena en violeta */}
-          <RevealGroup as="ul" className="mt-10 grid gap-3 sm:grid-cols-3">
+          {/* Pilares compactos: en hover se elevan y el ícono se rellena */}
+          <RevealGroup as="ul" className="mt-8 grid gap-2 sm:grid-cols-3">
             {pillars.map(({ title, text, icon: Icon, iconSolid: IconSolid }) => (
               <RevealItem
                 as="li"
                 key={title}
-                className="group/pillar card-lift rounded-card bg-white p-5"
+                className="group/pillar card-lift flex items-center gap-3 rounded-control bg-white px-3 py-2.5 sm:flex-col sm:items-start sm:gap-2 sm:p-3"
               >
-                <span className="relative flex size-11 items-center justify-center rounded-control bg-tint">
-                  <Icon aria-hidden="true" className="size-5 text-primary" strokeWidth={1.5} />
-                  <span className="absolute inset-0 flex items-center justify-center rounded-control bg-primary opacity-0 transition-opacity duration-300 ease-brand group-hover/pillar:opacity-100">
-                    <IconSolid aria-hidden="true" className="size-5 text-white" />
+                <span className="relative flex size-8 shrink-0 items-center justify-center rounded-control bg-tint">
+                  <Icon aria-hidden="true" className="size-4 text-complement" strokeWidth={1.5} />
+                  <span className="absolute inset-0 flex items-center justify-center rounded-control bg-complement opacity-0 transition-opacity duration-300 ease-brand group-hover/pillar:opacity-100">
+                    <IconSolid aria-hidden="true" className="size-4 text-white" />
                   </span>
                 </span>
-                <p className="mt-4 font-heading font-extrabold text-primary-dark">{title}</p>
-                <p className="mt-1 text-ink-muted">{text}</p>
+                <span className="leading-snug">
+                  <span className="block text-sm font-semibold text-primary-dark">{title}</span>
+                  <span className="block text-sm text-ink-muted">{text}</span>
+                </span>
               </RevealItem>
             ))}
           </RevealGroup>
@@ -75,7 +76,7 @@ export function About() {
           <RevealGroup as="ul" className="mt-8 space-y-3">
             {site.achievements.map((achievement) => (
               <RevealItem as="li" key={achievement} className="flex items-start gap-3 text-ink">
-                <CheckCircleIcon aria-hidden="true" className="size-5 shrink-0 text-primary" strokeWidth={1.5} />
+                <CheckCircleIcon aria-hidden="true" className="size-5 shrink-0 text-complement" strokeWidth={1.5} />
                 <span>{achievement}</span>
               </RevealItem>
             ))}

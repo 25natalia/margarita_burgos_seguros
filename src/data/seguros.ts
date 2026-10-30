@@ -1,17 +1,18 @@
 // Seguros que ofrece Margarita. Alimenta la sección "Seguros que ofrezco" de la
-// home y las páginas /seguros/[slug].
+// home, el menú, el footer y las páginas /seguros/[slug].
 //
-// TODO (Margarita): validar las coberturas de cada seguro y reemplazar
-// "Aseguradora 1/2/3" por las aseguradoras reales con las que trabaja cada uno.
-// No hay cifras ni montos a propósito: cada póliza tiene los suyos.
+// Ramos que Margarita mencionó: vida, salud, ahorro y patrimoniales. Ahorro se
+// divide en pesos y dólares (datos de sus preguntas frecuentes) y patrimoniales
+// en hogar, autos y negocio (contenido PROVISIONAL).
+// TODO (Margarita): validar coberturas y perfiles de cada seguro y confirmar
+// qué seguros patrimoniales maneja. No hay cifras de coberturas a propósito.
 
 import {
-  BuildingOffice2Icon,
-  DocumentCheckIcon,
-  GlobeAmericasIcon,
+  BanknotesIcon,
+  BuildingStorefrontIcon,
+  CurrencyDollarIcon,
   HeartIcon,
   HomeIcon,
-  ScaleIcon,
   ShieldCheckIcon,
   TruckIcon,
 } from "@heroicons/react/24/outline";
@@ -22,20 +23,19 @@ type Icon = ComponentType<SVGProps<SVGSVGElement>>;
 /**
  * Recorrido de color de las píldoras (en orden): la píldora i va de
  * colorRamp[i] a colorRamp[i + 1], así el final de una es el inicio de la
- * siguiente. Morado profundo → violeta → orquídea → rosa lavanda → índigo →
- * azul → verde azulado → menta (acento). Todos, menos el menta final, tienen
- * contraste AA con texto blanco (≥ 6.9:1). Debe tener seguros.length + 1 colores.
+ * siguiente. Morado profundo → violeta → complemento → orquídea → rosa lavanda
+ * → índigo → azul → verde azulado. Todos tienen contraste AA con texto blanco
+ * (≥ 4.8:1). Debe tener seguros.length + 1 colores.
  */
 export const colorRamp = [
   "#2a1886",
   "#4527c4",
+  "#5e5df6",
   "#6230bd",
   "#8a2fa3",
-  "#6b2c9e",
   "#3a35b0",
   "#1f4f9e",
   "#0e6560",
-  "#48e596",
 ];
 
 export type Seguro = {
@@ -43,7 +43,7 @@ export type Seguro = {
   name: string;
   /** Frase corta bajo el nombre en la píldora. */
   tagline: string;
-  /** Completa "Hola Margarita, quiero cotizar …" en el mensaje de WhatsApp. */
+  /** Completa "… Quiero cotizar …" en el mensaje de WhatsApp. */
   quoteLabel: string;
   icon: Icon;
   /** "¿Qué es?" en lenguaje sencillo. */
@@ -52,12 +52,7 @@ export type Seguro = {
   coverages: string[];
   /** "¿Para quién es ideal?" (2–3 perfiles). */
   idealFor: { title: string; text: string }[];
-  /** TODO: aseguradoras reales con las que se puede tener este seguro. */
-  insurers: string[];
 };
-
-// TODO: reemplazar por las aseguradoras reales de cada seguro.
-const placeholderInsurers = ["Aseguradora 1", "Aseguradora 2", "Aseguradora 3"];
 
 const list: Seguro[] = [
   {
@@ -79,7 +74,6 @@ const list: Seguro[] = [
       { title: "Si tienes deudas", text: "Para que un crédito no quede en manos de tu familia." },
       { title: "Si eres independiente", text: "Para tener un respaldo que no depende de un empleador." },
     ],
-    insurers: placeholderInsurers,
   },
   {
     slug: "salud",
@@ -99,7 +93,66 @@ const list: Seguro[] = [
       { title: "Si quieres más agilidad", text: "Citas y especialistas en menos tiempo." },
       { title: "Si piensas en tu familia", text: "Hay planes para incluir a los tuyos." },
     ],
-    insurers: placeholderInsurers,
+  },
+  {
+    slug: "ahorro-pesos",
+    name: "Ahorro en pesos",
+    tagline: "Ahorra con beneficio tributario",
+    quoteLabel: "un plan de ahorro en pesos",
+    icon: BanknotesIcon,
+    description:
+      "Es un plan para ahorrar a largo plazo en pesos colombianos, pensado para aprovechar el beneficio tributario. Además te protege: incluye seguro de vida e incapacidad total y permanente sin costo adicional. Empiezas desde $357.000 COP al mes, con un plazo recomendado de 10 años.",
+    coverages: [
+      "Beneficio tributario (en el plan a 10 años)",
+      "Seguro de vida e ITP sin costo adicional",
+      "Ahorro inembargable que crece con rentabilidad",
+      "Aportes flexibles: puedes aumentarlos, disminuirlos o pausarlos",
+      "Tabla de proyección para saber cuánto recibirías si te retiras antes",
+    ],
+    idealFor: [
+      { title: "Si quieres beneficio tributario", text: "El plan en pesos a 10 años lo incluye." },
+      { title: "Si piensas a largo plazo", text: "El producto suele madurar hacia el año 8." },
+      { title: "Si quieres proteger a tu familia mientras ahorras", text: "El seguro de vida viene incluido." },
+    ],
+  },
+  {
+    slug: "ahorro-dolares",
+    name: "Ahorro en dólares",
+    tagline: "Tu ahorro en otra moneda",
+    quoteLabel: "un plan de ahorro en dólares",
+    icon: CurrencyDollarIcon,
+    description:
+      "Es un plan para ahorrar en dólares desde 150 USD al mes, con un plazo mínimo de 5 años. Igual que el plan en pesos, incluye seguro de vida e incapacidad total y permanente sin costo adicional.",
+    coverages: [
+      "Seguro de vida e ITP sin costo adicional",
+      "Ahorro inembargable que crece con rentabilidad",
+      "Descuento si pagas la anualidad por anticipado",
+      "Después de 24 meses, puedes atrasarte hasta 12 cuotas sin perder beneficios",
+    ],
+    idealFor: [
+      { title: "Si quieres ahorrar en dólares", text: "Desde 150 USD al mes." },
+      { title: "Si buscas un plazo más corto", text: "El mínimo es de 5 años." },
+      { title: "Si quieres flexibilidad", text: "Puedes aumentar, disminuir o pausar tus aportes." },
+    ],
+  },
+  {
+    slug: "hogar",
+    name: "Hogar",
+    tagline: "Tu casa, protegida",
+    quoteLabel: "un seguro de hogar",
+    icon: HomeIcon,
+    description:
+      "Protege tu casa o apartamento y lo que tienes dentro. Sirve tanto si la vivienda es tuya como si vives en arriendo.",
+    coverages: [
+      "Incendio y daños por agua (según el plan)",
+      "Terremoto y fenómenos naturales (según el plan)",
+      "Hurto de bienes dentro de la vivienda (según el plan)",
+      "Daños a vecinos o terceros (según el plan)",
+    ],
+    idealFor: [
+      { title: "Si acabas de comprar vivienda", text: "Para cuidar lo que te costó tanto esfuerzo." },
+      { title: "Si vives en arriendo", text: "Para proteger tus cosas, aunque la casa no sea tuya." },
+    ],
   },
   {
     slug: "autos",
@@ -111,47 +164,26 @@ const list: Seguro[] = [
       "Cubre tu carro y los daños que puedas causar a otros al manejar. Y si tienes un choque, no te quedas solo: lo resolvemos juntos.",
     coverages: [
       "Daños a terceros (responsabilidad civil)",
-      "Pérdida parcial o total por daños",
-      "Hurto del vehículo",
+      "Pérdida parcial o total por daños (según el plan)",
+      "Hurto del vehículo (según el plan)",
       "Asistencia en carretera (según el plan)",
     ],
     idealFor: [
       { title: "Si usas tu carro a diario", text: "Para manejar con tranquilidad todos los días." },
       { title: "Si tu carro es nuevo o lo estás pagando", text: "Para proteger una inversión importante." },
     ],
-    insurers: placeholderInsurers,
   },
   {
-    slug: "hogar",
-    name: "Hogar",
-    tagline: "Tu casa, protegida",
-    quoteLabel: "un seguro de hogar",
-    icon: HomeIcon,
-    description:
-      "Protege tu casa o apartamento y lo que tienes dentro. Sirve tanto si la vivienda es tuya como si vives en arriendo.",
-    coverages: [
-      "Incendio y daños por agua",
-      "Terremoto y fenómenos naturales",
-      "Hurto de bienes dentro de la vivienda",
-      "Daños a vecinos o terceros (según el plan)",
-    ],
-    idealFor: [
-      { title: "Si acabas de comprar vivienda", text: "Para cuidar lo que te costó tanto esfuerzo." },
-      { title: "Si vives en arriendo", text: "Para proteger tus cosas, aunque la casa no sea tuya." },
-    ],
-    insurers: placeholderInsurers,
-  },
-  {
-    slug: "empresas",
-    name: "Empresas / PYME",
-    tagline: "Respaldo para tu negocio",
-    quoteLabel: "un seguro para mi empresa",
-    icon: BuildingOffice2Icon,
+    slug: "negocio",
+    name: "Negocio",
+    tagline: "Respaldo para tu empresa",
+    quoteLabel: "un seguro para mi negocio",
+    icon: BuildingStorefrontIcon,
     description:
       "Protege tu negocio, tus equipos y tu equipo de trabajo. Revisamos juntos qué riesgos tiene tu actividad y armamos lo que de verdad necesitas.",
     coverages: [
-      "Daños a la sede, equipos y mercancía",
-      "Responsabilidad civil frente a clientes y terceros",
+      "Daños a la sede, equipos y mercancía (según el plan)",
+      "Responsabilidad civil frente a clientes y terceros (según el plan)",
       "Seguros para empleados (según el plan)",
       "Interrupción del negocio (según el plan)",
     ],
@@ -159,66 +191,6 @@ const list: Seguro[] = [
       { title: "Si tienes un local u oficina", text: "Para que un imprevisto no frene tu negocio." },
       { title: "Si tienes empleados", text: "Para cuidarlos a ellos y a tu empresa." },
     ],
-    insurers: placeholderInsurers,
-  },
-  {
-    slug: "soat",
-    name: "SOAT",
-    tagline: "Al día y sin enredos",
-    quoteLabel: "el SOAT",
-    icon: DocumentCheckIcon,
-    description:
-      "Es el seguro obligatorio para todo vehículo en Colombia. Cubre la atención de las personas heridas en un accidente de tránsito. Te ayudo a tenerlo al día y sin vueltas.",
-    coverages: [
-      "Gastos médicos de las víctimas",
-      "Incapacidad permanente",
-      "Muerte y gastos funerarios",
-      "Transporte de las víctimas al centro médico",
-    ],
-    idealFor: [
-      { title: "Todo vehículo", text: "Carro o moto: es obligatorio para circular." },
-      { title: "Si se te olvida renovarlo", text: "Te ayudo a tenerlo al día." },
-    ],
-    insurers: placeholderInsurers,
-  },
-  {
-    slug: "viajes",
-    name: "Viajes",
-    tagline: "Viaja sin preocupaciones",
-    quoteLabel: "un seguro de viaje",
-    icon: GlobeAmericasIcon,
-    description:
-      "Te respalda si te enfermas, tienes un accidente o pierdes tu equipaje mientras viajas. Algunos destinos lo piden para dejarte entrar.",
-    coverages: [
-      "Atención médica de urgencia en el exterior",
-      "Pérdida o demora del equipaje",
-      "Cancelación o interrupción del viaje (según el plan)",
-      "Asistencia 24 horas",
-    ],
-    idealFor: [
-      { title: "Si viajas fuera del país", text: "Para que una urgencia no arruine el viaje." },
-      { title: "Si el destino lo exige", text: "Como en la zona Schengen de Europa." },
-    ],
-    insurers: placeholderInsurers,
-  },
-  {
-    slug: "responsabilidad-civil",
-    name: "Responsabilidad civil",
-    tagline: "Respaldo ante un error",
-    quoteLabel: "un seguro de responsabilidad civil",
-    icon: ScaleIcon,
-    description:
-      "Responde por los daños que, sin querer, puedas causarle a otra persona o a sus cosas. Así un error no se convierte en un problema económico grande.",
-    coverages: [
-      "Daños a otras personas",
-      "Daños a bienes de terceros",
-      "Gastos de defensa (según el plan)",
-    ],
-    idealFor: [
-      { title: "Si ejerces una profesión", text: "Médicos, ingenieros, abogados y más." },
-      { title: "Si tienes un negocio abierto al público", text: "Para cubrir lo que pase con clientes y visitantes." },
-    ],
-    insurers: placeholderInsurers,
   },
 ];
 

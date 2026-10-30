@@ -48,7 +48,7 @@ const mobileLinks = [
   { id: "contacto", label: "Contacto" },
 ];
 
-const quoteHref = getWhatsAppLink("Hola Margarita, quiero cotizar un seguro");
+const quoteHref = getWhatsAppLink("Hola Margarita, te escribo desde tu página web. Quiero cotizar un seguro.");
 
 /** Sección visible bajo la franja central de la pantalla. */
 function useActiveSection(enabled: boolean) {
@@ -183,10 +183,10 @@ export function Header() {
             onClick={() => setMenuOpen(false)}
           >
             <Image
-              src="/logo-margarita.svg"
+              src="/margarita_burgos_logo.svg"
               alt={site.name}
-              width={948}
-              height={324}
+              width={1001}
+              height={342}
               priority
               unoptimized
               className={`h-9 w-auto origin-left transition-transform duration-300 ease-brand ${compact ? "scale-[0.92]" : ""}`}
